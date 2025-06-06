@@ -7,7 +7,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <div className="text-xl font-semibold text-gray-800">MoodApp</div>
         <div className="space-x-4 hidden md:flex">
-          <Link to="/dashboard" className="text-gray-600 hover:text-gray-900">
+          <Link to="/" className="text-gray-600 hover:text-gray-900">
             Dashboard
           </Link>
           <Link
