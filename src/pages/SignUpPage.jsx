@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SignUpForm from "../components/SignUpForm";
+import { SignUpForm } from "../components/SignUpForm";
 import { useAuthContext } from "../context/auth.context";
 
 function SignUpPage() {

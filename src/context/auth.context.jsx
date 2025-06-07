@@ -24,10 +24,12 @@ const AuthProvider = ({ children }) => {
     try {
       setIsLoading(true);
       const response = await api.post("/api/auth/login", credentials);
-      const { authToken, user } = response.data;
+      const { authToken } = response.data;
       if (authToken) {
         storeToken(authToken);
-        setUser(user);
+        // Fetch user info using the token (separate call )
+        const userRes = await api.get("/api/auth/me");
+        setUser(userRes.data.user);
         setIsLoggedIn(true);
       }
     } catch (error) {
