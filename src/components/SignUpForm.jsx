@@ -190,4 +190,4 @@ function SignUpForm({ onSubmit, errorMsg }) {
   );
 }
 
-export default SignUpForm;
+export { SignUpForm };
