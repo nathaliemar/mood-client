@@ -4,6 +4,7 @@ import { LogoutButton } from "./LogoutButton";
 import { useAuthContext } from "../context/auth.context";
 
 const Navbar = () => {
+  //TODO: Hide/Show specific content if user is Admin
   const { user } = useAuthContext();
   return (
     <nav className="sticky top-0 z-50 bg-white shadow-md">
@@ -20,6 +21,18 @@ const Navbar = () => {
             className="text-gray-600 hover:text-gray-900"
           >
             Analytics
+          </Link>
+          <Link
+            to="/settings/users"
+            className="text-gray-600 hover:text-gray-900"
+          >
+            Users
+          </Link>
+          <Link
+            to="/settings/teams"
+            className="text-gray-600 hover:text-gray-900"
+          >
+            Teams
           </Link>
 
           {!user ? (

@@ -7,3 +7,4 @@ export { NotFoundPage } from "./NotFoundPage";
 export { SignUpPage } from "./SignUpPage";
 export { TeamListPage } from "./TeamListPage";
 export { UserListPage } from "./UserListPage";
+export { UserDetailsPage } from "./UserDetailsPage";

@@ -9,6 +9,7 @@ import {
   NotFoundPage,
   SignUpPage,
   TeamListPage,
+  UserDetailsPage,
   UserListPage,
 } from "./pages";
 import Navbar from "./components/Navbar";
@@ -25,6 +26,7 @@ function App() {
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/answer" element={<AnswerFormPage />} />
             <Route path="/settings/users" element={<UserListPage />} />
+            <Route path="/settings/users/:id" element={<UserDetailsPage />} />
             <Route path="/settings/teams" element={<TeamListPage />} />
             <Route path="/analytics/user" element={<AnalyticsUserPage />} />
             <Route path="/analytics/team" element={<AnalyticsTeamPage />} />
