@@ -12,11 +12,13 @@ import {
   UserDetailsPage,
   UserListPage,
 } from "./pages";
+import { Toaster } from "react-hot-toast";
 import Navbar from "./components/Navbar";
 
 function App() {
   return (
     <>
+      <Toaster position="bottom-center" />
       <div className="flex flex-col min-h-screen">
         <Navbar />
         <main className="flex-1">

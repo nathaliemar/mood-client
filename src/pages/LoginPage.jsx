@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { LoginForm } from "../components/LoginForm";
 import { useAuthContext } from "../context/auth.context";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function LoginPage() {
   const { login, user } = useAuthContext();
@@ -11,6 +12,7 @@ function LoginPage() {
   const handleLogin = async (formData) => {
     try {
       await login(formData);
+      toast.success("Welcome back!");
       navigate("/");
     } catch (error) {
       setErrorMsg(error);
