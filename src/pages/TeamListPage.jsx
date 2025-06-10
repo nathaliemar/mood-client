@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 
 function TeamListPage() {
   const [teams, setTeams] = useState([]);
+  const [createMode, setCreateMode] = useState(false);
+  const [createdTeamName, setCreatedTeamName] = useState();
+
   const fetchTeams = async () => {
     try {
       const teams = await api.get("/api/teams");
@@ -18,13 +21,56 @@ function TeamListPage() {
     fetchTeams();
   }, []);
 
+  const handleCreateTeam = async (e) => {
+    e.preventDefault();
+    try {
+      await api.post("/api/teams", { teamName: createdTeamName });
+      setCreateMode(false);
+      fetchTeams();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleCancelCreateTeam = async (e) => {
+    e.preventDefault();
+    setCreateMode(false);
+    setCreatedTeamName("");
+  };
   return (
     <>
-      <Link>
-        <button className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition m-4">
+      {!createMode && (
+        <button
+          onClick={() => setCreateMode(true)}
+          className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition m-4"
+        >
           Add new Team
         </button>
-      </Link>
+      )}
+      {createMode && (
+        <form className="flex items-center gap-2 m-4 bg-white p-4 rounded shadow">
+          <label className="mr-2 font-medium">Team Name</label>
+          <input
+            type="text"
+            onChange={(e) => setCreatedTeamName(e.target.value)}
+            className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          />
+          <button
+            onClick={handleCreateTeam}
+            type="submit"
+            className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
+          >
+            Create
+          </button>
+          <button
+            onClick={handleCancelCreateTeam}
+            type="button"
+            className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 transition"
+          >
+            Cancel
+          </button>
+        </form>
+      )}
       <div>
         {teams.map((team) => (
           <TeamListItem key={team._id} team={team} refreshTeams={fetchTeams} />
