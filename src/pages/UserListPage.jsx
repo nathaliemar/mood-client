@@ -9,6 +9,7 @@ function UserListPage() {
     try {
       const res = await api.get("/api/users");
       setUsers(res.data);
+      console.log(res.data);
     } catch (err) {
       // Optionally handle error
       setUsers([]);

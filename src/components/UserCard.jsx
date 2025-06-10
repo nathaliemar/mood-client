@@ -23,6 +23,12 @@ const UserCard = ({ user }) => {
         <div>
           <span className="font-semibold">Role:</span> {user.role}
         </div>
+        <div>
+          <span className="font-semibold">Team:</span> {user.team.teamName}
+        </div>
+        <div>
+          <span className="font-semibold">Is teamlead:</span> {user.isTeamlead}
+        </div>
       </div>
     </div>
   );
