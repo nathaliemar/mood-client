@@ -34,7 +34,7 @@ const AuthProvider = ({ children }) => {
       }
     } catch (error) {
       console.log("Login error:", error);
-      throw error.response?.data?.message || "Login failed";
+      throw error;
     } finally {
       setIsLoading(false);
     }
@@ -49,7 +49,7 @@ const AuthProvider = ({ children }) => {
       }
     } catch (error) {
       console.log("Signup error:", error);
-      throw error.response?.data?.message || "Signup failed";
+      throw error;
     } finally {
       setIsLoading(false);
     }

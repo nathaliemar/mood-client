@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { api } from "../services/api";
+import { handleApiError } from "../utils/handleApiError";
 
 const TeamListItem = ({ team, refreshTeams }) => {
   const [expanded, setExpanded] = useState(false);
@@ -30,7 +31,7 @@ const TeamListItem = ({ team, refreshTeams }) => {
     try {
       await api.put(`api/teams/${team._id}`, { teamName: editName });
     } catch (error) {
-      console.log(error);
+      handleApiError(error);
     }
   };
   const handleDelete = async (e) => {
@@ -39,7 +40,7 @@ const TeamListItem = ({ team, refreshTeams }) => {
       await api.delete(`api/teams/${team._id}`);
       refreshTeams();
     } catch (error) {
-      console.log(error);
+      handleApiError(error);
     }
   };
 

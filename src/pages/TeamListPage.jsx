@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { api } from "../services/api";
 import { TeamListItem } from "../components/TeamListItem";
-import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import { handleApiError } from "../utils/handleApiError";
 
 function TeamListPage() {
   const [teams, setTeams] = useState([]);
@@ -27,12 +28,13 @@ function TeamListPage() {
       await api.post("/api/teams", { teamName: createdTeamName });
       setCreateMode(false);
       fetchTeams();
+      toast.success("Team created successfully");
     } catch (error) {
-      console.log(error);
+      handleApiError(error);
     }
   };
 
-  const handleCancelCreateTeam = async (e) => {
+  const handleCancelCreateTeam = (e) => {
     e.preventDefault();
     setCreateMode(false);
     setCreatedTeamName("");

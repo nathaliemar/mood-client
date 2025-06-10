@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { LoginForm } from "../components/LoginForm";
 import { useAuthContext } from "../context/auth.context";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { handleApiError } from "../utils/handleApiError";
 
 function LoginPage() {
   const { login, user } = useAuthContext();
-  const [errorMsg, setErrorMsg] = useState();
   const navigate = useNavigate();
 
   const handleLogin = async (formData) => {
@@ -15,7 +15,7 @@ function LoginPage() {
       toast.success("Welcome back!");
       navigate("/");
     } catch (error) {
-      setErrorMsg(error);
+      handleApiError(error);
     }
   };
   useEffect(() => {
@@ -26,7 +26,7 @@ function LoginPage() {
   return (
     <div>
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-        <LoginForm onSubmit={handleLogin} errorMsg={errorMsg} />
+        <LoginForm onSubmit={handleLogin} />
       </div>
     </div>
   );
