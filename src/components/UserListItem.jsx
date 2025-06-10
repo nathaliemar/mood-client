@@ -25,10 +25,10 @@ function UserListItem({ user }) {
       <div className="flex-1 min-w-0 truncate">{user.lastName}</div>
       {/* Email */}
       <div className="flex-1 min-w-0 text-gray-600 truncate">{user.email}</div>
-      {/* Team
+      {/* Team */}
       <div className="flex-1 min-w-0 text-gray-500 truncate">
-        {user.team.teamName ? user.team.teamName : ""}
-      </div> */}
+        {user.team?.teamName ? user.team.teamName : ""}
+      </div>
     </div>
   );
 }
