@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-function LoginForm({ onSubmit, errorMsg }) {
+function LoginForm({ onSubmit }) {
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -18,8 +18,9 @@ function LoginForm({ onSubmit, errorMsg }) {
 
   return (
     <>
-      <div className="text-xl font-semibold text-center mb-4">Welcome back!</div>
-      {errorMsg && <div className="text-red-500 mb-2">{errorMsg}</div>}
+      <div className="text-xl font-semibold text-center mb-4">
+        Welcome back!
+      </div>
       <form
         className="w-full max-w-md mx-auto p-6 bg-white rounded-lg shadow flex flex-col gap-4"
         onSubmit={handleSubmit}
