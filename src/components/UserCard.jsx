@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { handleApiError } from "../utils/handleApiError";
 import { api } from "../services/api";
+import { capitalize } from "../utils/capitalize";
 
 const UserCard = ({ user, refreshUser }) => {
   const { id } = useParams();
@@ -112,7 +113,7 @@ const UserCard = ({ user, refreshUser }) => {
               <div className="font-semibold text-left">Email:</div>
               <div className="text-left">{user.email}</div>
               <div className="font-semibold text-left">Role:</div>
-              <div className="text-left">{user.role}</div>
+              <div className="text-left">{capitalize(user.role)}</div>
               <div className="font-semibold text-left">Team:</div>
               <div className="text-left">
                 {user.team?.teamName || "⚠️ No team assigned"}
@@ -165,14 +166,16 @@ const UserCard = ({ user, refreshUser }) => {
               required
             />
             <div className="font-semibold text-left">Role:</div>
-            <input
-              type="text"
+            <select
               name="role"
-              value={form.role}
+              value={capitalize(form.role) || "User"}
               onChange={handleChange}
               className="border rounded px-2 py-1"
               required
-            />
+            >
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
             <div className="font-semibold text-left">Team:</div>
             <select
               name="teamId"
