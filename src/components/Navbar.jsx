@@ -17,7 +17,7 @@ const Navbar = () => {
             Dashboard
           </Link>
           <Link
-            to="/analytics/user"
+            to="/analytics/team"
             className="text-gray-600 hover:text-gray-900"
           >
             Analytics
