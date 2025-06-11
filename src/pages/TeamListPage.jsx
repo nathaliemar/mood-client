@@ -6,6 +6,7 @@ import { handleApiError } from "../utils/handleApiError";
 
 function TeamListPage() {
   const [teams, setTeams] = useState([]);
+  const [users, setUsers] = useState([]);
   const [createMode, setCreateMode] = useState(false);
   const [createdTeamName, setCreatedTeamName] = useState();
 
@@ -14,12 +15,23 @@ function TeamListPage() {
       const teams = await api.get("/api/teams");
       setTeams(teams.data);
     } catch (error) {
-      console.log(error);
+      handleApiError(error);
       setTeams([]);
+    }
+  };
+
+  const fetchUsers = async () => {
+    try {
+      const res = await api.get("/api/users");
+      setUsers(res.data);
+    } catch (error) {
+      handleApiError(error);
+      setUsers([]);
     }
   };
   useEffect(() => {
     fetchTeams();
+    fetchUsers();
   }, []);
 
   const handleCreateTeam = async (e) => {
@@ -75,7 +87,12 @@ function TeamListPage() {
       )}
       <div>
         {teams.map((team) => (
-          <TeamListItem key={team._id} team={team} refreshTeams={fetchTeams} />
+          <TeamListItem
+            key={team._id}
+            team={team}
+            users={users}
+            refreshTeams={fetchTeams}
+          />
         ))}
       </div>
     </>
