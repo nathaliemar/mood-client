@@ -5,6 +5,7 @@ import Confetti from "react-confetti";
 import { useAuthContext } from "../context/auth.context";
 import { MoodEntryCard } from "../components/MoodEntryCard";
 import { getTodayDateAtMidnight } from "../utils/dateUtils";
+import { HeroComponent } from "../components/HeroComponent";
 
 function DashboardPage() {
   const [errorMsg, setErrorMsg] = useState();
@@ -61,8 +62,9 @@ function DashboardPage() {
     return <div>Loading...</div>;
   }
 
+  //Dispayed for not logged in users
   if (!user?._id) {
-    return <div>Please log in to access your dashboard.</div>;
+    return <HeroComponent />;
   }
 
   return (
