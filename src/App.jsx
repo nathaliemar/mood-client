@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import {
   AnalyticsTeamPage,
   AnalyticsUserPage,
-  AnswerFormPage,
   DashboardPage,
   LoginPage,
   NotFoundPage,
@@ -26,7 +25,6 @@ function App() {
             <Route path="/" element={<DashboardPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
-            <Route path="/answer" element={<AnswerFormPage />} />
             <Route path="/settings/users" element={<UserListPage />} />
             <Route path="/settings/users/:id" element={<UserDetailsPage />} />
             <Route path="/settings/teams" element={<TeamListPage />} />
