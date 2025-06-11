@@ -1,4 +1,5 @@
 import React from "react";
+import { capitalize } from "../utils/capitalize";
 
 function UserListItem({ user }) {
   return (
@@ -40,7 +41,9 @@ function UserListItem({ user }) {
         {user.teamLead ? "Yes" : "No"}
       </div>
       {/* Role */}
-      <div className="flex-1 min-w-0 text-gray-600 truncate">{user.role}</div>
+      <div className="flex-1 min-w-0 text-gray-600 truncate">
+        {capitalize(user.role)}
+      </div>
     </div>
   );
 }
