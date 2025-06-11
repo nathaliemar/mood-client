@@ -13,27 +13,33 @@ const Navbar = () => {
           <div className="text-xl font-semibold text-gray-800">MoodApp</div>
         </Link>
         <div className="space-x-4 hidden md:flex flex items-center">
+          {/* Show "Home" if not logged in, "Dashboard" if logged in */}
           <Link to="/" className="text-gray-600 hover:text-gray-900">
-            Dashboard
+            {isLoggedIn ? "Dashboard" : "Home"}
           </Link>
-          <Link
-            to="/analytics/team"
-            className="text-gray-600 hover:text-gray-900"
-          >
-            Analytics
-          </Link>
-          <Link
-            to="/settings/users"
-            className="text-gray-600 hover:text-gray-900"
-          >
-            Users
-          </Link>
-          <Link
-            to="/settings/teams"
-            className="text-gray-600 hover:text-gray-900"
-          >
-            Teams
-          </Link>
+          {/* Only show these links if logged in */}
+          {isLoggedIn && (
+            <>
+              <Link
+                to="/analytics/team"
+                className="text-gray-600 hover:text-gray-900"
+              >
+                Analytics
+              </Link>
+              <Link
+                to="/settings/users"
+                className="text-gray-600 hover:text-gray-900"
+              >
+                Users
+              </Link>
+              <Link
+                to="/settings/teams"
+                className="text-gray-600 hover:text-gray-900"
+              >
+                Teams
+              </Link>
+            </>
+          )}
 
           {isLoading ? null : isLoggedIn ? (
             <>
