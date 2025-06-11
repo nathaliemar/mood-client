@@ -1,12 +1,37 @@
-# React + Vite
+# Mood App – Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the React client for the Mood App, a daily mood check-in platform for teams and organizations. The app helps teams track well-being, foster transparency, and build a positive workplace culture.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **User Authentication:** Secure sign up and login.
+- **Daily Mood Check-ins:** Submit your mood and a note each day.
+- **Team & User Management:** Admins can manage users and teams.
+- **Analytics:** View mood analytics for your team or organization.
+- **Responsive UI:** Modern, mobile-friendly interface.
 
-## Expanding the ESLint configuration
+## Project Structure
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- `src/` – Main source code
+  - `components/` – Reusable UI components
+  - `pages/` – Route-based pages
+  - `context/` – React context for authentication
+  - `services/` – API service (Axios)
+  - `utils/` – Utility functions
+
+## Tech Stack
+
+- React
+- Vite
+- Tailwind CSS
+- Axios
+- React Router
+- react-hot-toast
+
+## License
+
+MIT
+
+---
+
+> This client works together with the Mood App server.
