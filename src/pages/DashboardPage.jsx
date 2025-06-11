@@ -3,6 +3,7 @@ import { MoodEntryForm } from "../components/MoodEntryForm";
 import { api } from "../services/api";
 import Confetti from "react-confetti";
 import { AuthContext } from "../context/auth.context";
+import { MoodEntryCard } from "../components/MoodEntryCard";
 
 function DashboardPage() {
   const [errorMsg, setErrorMsg] = useState();
@@ -64,9 +65,7 @@ function DashboardPage() {
           <p>
             You already submitted for today!
             <br />
-            Score: {todayEntry.score}
-            <br />
-            Note: {todayEntry.note}
+            <MoodEntryCard moodEntry={todayEntry} />
           </p>
         </div>
       ) : (
