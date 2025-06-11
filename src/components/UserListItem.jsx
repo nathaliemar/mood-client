@@ -35,6 +35,12 @@ function UserListItem({ user }) {
           </span>
         )}
       </div>
+      {/* TeamLead */}
+      <div className="flex-1 min-w-0 text-gray-600 truncate">
+        {user.teamLead ? "Yes" : "No"}
+      </div>
+      {/* Role */}
+      <div className="flex-1 min-w-0 text-gray-600 truncate">{user.role}</div>
     </div>
   );
 }

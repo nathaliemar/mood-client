@@ -85,7 +85,7 @@ function TeamListPage() {
           </button>
         </form>
       )}
-      <div>
+      <div className="m-4">
         {teams.map((team) => (
           <TeamListItem
             key={team._id}
