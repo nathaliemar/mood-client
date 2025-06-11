@@ -57,7 +57,6 @@ function DashboardPage() {
     }
   };
 
-  //TODO: If error 409: you already submitted!
   if (isLoading || entryIsLoading) {
     return <div>Loading...</div>;
   }
@@ -70,7 +69,9 @@ function DashboardPage() {
   return (
     <div>
       {showConfetti && <Confetti />}
-      <h1>Hello there!</h1>
+      <h1 className="text-4xl font-bold mb-4">
+        Hello{user?.firstName ? `, ${user.firstName}` : "there"}!
+      </h1>
       {todayEntry ? (
         <div>
           You already submitted for today!
