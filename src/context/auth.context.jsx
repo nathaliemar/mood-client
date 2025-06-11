@@ -65,12 +65,15 @@ const AuthProvider = ({ children }) => {
     const token = localStorage.getItem("authToken");
     if (!token) {
       setIsLoading(false);
+      //TODO:Added these two, see if they cause issues:
+      setUser(null), setIsLoggedIn(false);
       return;
     }
     try {
       const response = await api.get("/api/auth/verify");
       if (response.status === 200) {
-        setUser(response.data.user);
+        const userRes = await api.get("/api/auth/me");
+        setUser(userRes.data.user);
         setIsLoggedIn(true);
       }
     } catch (error) {
