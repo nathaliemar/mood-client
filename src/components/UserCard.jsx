@@ -19,7 +19,9 @@ const UserCard = ({ user }) => {
           <div className="font-semibold text-left">Role:</div>
           <div className="text-left">{user.role}</div>
           <div className="font-semibold text-left">Team:</div>
-          <div className="text-left">{user.team.teamName}</div>
+          <div className="text-left">
+            {user.team?.teamName || " ⚠️ No team assigned"}
+          </div>
           <div className="font-semibold text-left">Is teamlead:</div>
           <div className="text-left">{user.isTeamlead ? "Yes" : "No"}</div>
         </div>

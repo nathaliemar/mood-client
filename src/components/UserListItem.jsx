@@ -26,8 +26,14 @@ function UserListItem({ user }) {
       {/* Email */}
       <div className="flex-1 min-w-0 text-gray-600 truncate">{user.email}</div>
       {/* Team */}
-      <div className="flex-1 min-w-0 text-gray-500 truncate">
-        {user.team?.teamName ? user.team.teamName : ""}
+      <div className="flex-1 min-w-0  text-gray-600 truncate">
+        {user.team?.teamName ? (
+          user.team.teamName
+        ) : (
+          <span className=" text-gray-600 font-semibold">
+            ⚠️ No team assigned!
+          </span>
+        )}
       </div>
     </div>
   );

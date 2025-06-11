@@ -22,11 +22,20 @@ function UserListPage() {
 
   return (
     <div>
-      {users.map((user) => (
-        <Link to={`/settings/users/${user._id}`} key={user._id}>
-          <UserListItem user={user} />
-        </Link>
-      ))}
+      {users
+        .slice() // avoid mutating state
+        .sort((a, b) => {
+          // Users without team come first
+          if (!a.team && b.team) return -1;
+          if (a.team && !b.team) return 1;
+          // Both have or don't have a team: sort by firstName
+          return a.firstName.localeCompare(b.firstName);
+        })
+        .map((user) => (
+          <Link to={`/settings/users/${user._id}`} key={user._id}>
+            <UserListItem user={user} />
+          </Link>
+        ))}
     </div>
   );
 }
