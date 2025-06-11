@@ -2,29 +2,20 @@ import { useState, useEffect } from "react";
 import { api } from "../services/api";
 import { handleApiError } from "../utils/handleApiError";
 
-const TeamListItem = ({ team, refreshTeams }) => {
+const TeamListItem = ({ team, refreshTeams, users = [] }) => {
   const [expanded, setExpanded] = useState(false);
   const [editName, setEditName] = useState(team.teamName);
-  const [users, setUsers] = useState([]);
-  const [loadingUsers, setLoadingUsers] = useState(false);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      setLoadingUsers(true);
-      try {
-        const res = await api.get("/api/users");
-        setUsers(res.data);
-      } catch {
-        setUsers([]);
-      } finally {
-        setLoadingUsers(false);
-      }
-    };
-
-    if (expanded && users.length === 0) {
-      fetchUsers();
-    }
-  }, [expanded, users.length]);
+  const teamLeads = users
+    .filter(
+      (u) =>
+        u.isTeamlead === true &&
+        u.team &&
+        (typeof u.team === "object"
+          ? u.team._id === team._id
+          : u.team === team._id)
+    )
+    .map((u) => `${u.firstName} ${u.lastName}`);
 
   const handleSave = async (e) => {
     e.preventDefault();
@@ -53,8 +44,8 @@ const TeamListItem = ({ team, refreshTeams }) => {
         <div>
           <div className="font-semibold text-lg">{team.teamName}</div>
           <div className="text-gray-600 text-sm mt-1">
-            {team.teamLeads && team.teamLeads.length > 0 ? (
-              `Team Leads: ${team.teamLeads.join(", ")}`
+            {teamLeads.length > 0 ? (
+              `Team Leads: ${teamLeads.join(", ")}`
             ) : (
               <span className="italic text-gray-400">
                 No Team Lead assigned
@@ -80,8 +71,8 @@ const TeamListItem = ({ team, refreshTeams }) => {
               Team Leads
             </label>
             <div className="mt-1 text-gray-800">
-              {team.teamLeads && team.teamLeads.length > 0 ? (
-                team.teamLeads.join(", ")
+              {teamLeads.length > 0 ? (
+                teamLeads.join(", ")
               ) : (
                 <span className="italic text-gray-400">
                   No Team Lead assigned

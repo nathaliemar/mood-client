@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { api } from "../services/api";
 import { UserListItem } from "../components/UserListItem";
 import { Link } from "react-router-dom";
+import { handleApiError } from "../utils/handleApiError";
 
 function UserListPage() {
   const [users, setUsers] = useState([]);
@@ -11,7 +12,7 @@ function UserListPage() {
       setUsers(res.data);
       console.log(res.data);
     } catch (err) {
-      // Optionally handle error
+      handleApiError(err);
       setUsers([]);
     }
   };
