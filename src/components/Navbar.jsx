@@ -5,7 +5,7 @@ import { useAuthContext } from "../context/auth.context";
 
 const Navbar = () => {
   //TODO: Hide/Show specific content if user is Admin
-  const { user } = useAuthContext();
+  const { user, isLoggedIn, isLoading } = useAuthContext();
   return (
     <nav className="sticky top-0 z-50 bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -35,7 +35,11 @@ const Navbar = () => {
             Teams
           </Link>
 
-          {!user ? (
+          {isLoading ? null : isLoggedIn ? (
+            <>
+              <LogoutButton />
+            </>
+          ) : (
             <>
               <Link to="/login" className="text-gray-600 hover:text-gray-900">
                 Login
@@ -43,10 +47,6 @@ const Navbar = () => {
               <Link to="/signup" className="text-gray-600 hover:text-gray-900">
                 Signup
               </Link>
-            </>
-          ) : (
-            <>
-              <LogoutButton />
             </>
           )}
         </div>

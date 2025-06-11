@@ -9,7 +9,7 @@ api.interceptors.request.use(
     const json = localStorage.getItem("authToken");
 
     if (json) {
-      config.headers.authorization = `Bearer ${json}`;
+      config.headers.Authorization = `Bearer ${json}`;
     }
     return config;
   },
