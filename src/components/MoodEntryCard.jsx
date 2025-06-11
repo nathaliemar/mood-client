@@ -1,9 +1,13 @@
+import { moodOptions } from "../utils/moodOptions";
+
 function MoodEntryCard({ moodEntry }) {
   const {
     createdBy: { imageUrl, firstName, lastName },
     score,
     note,
   } = moodEntry;
+  const mood = moodOptions.find((option) => option.value === score);
+
   return (
     <div className="flex items-start gap-6 border border-gray-200 rounded-lg p-6 max-w-lg bg-white shadow">
       <img
@@ -17,9 +21,9 @@ function MoodEntryCard({ moodEntry }) {
           <div className="text-left">{firstName}</div>
           <div className="font-semibold text-left">Last Name:</div>
           <div className="text-left">{lastName}</div>
-          <div className="font-semibold text-left">Score</div>
-          <div className="text-left">{score}</div>
-          <div className="font-semibold text-left">Note</div>
+          <div className="font-semibold text-left">Today's mood:</div>
+          <div className="text-left">{mood ? mood.emoji : ""}</div>
+          <div className="font-semibold text-left">Note:</div>
           <div className="text-left">{note}</div>
         </div>
       </div>
