@@ -29,8 +29,8 @@ function AnalyticsTeamPage() {
 
   // todo: adjust context for admins
   return (
-    <>
-      <h3 className="text-3xl font-bold text-center my-6">
+    <div className="min-h-screen bg-gradient-to-br from-pink-200 via-blue-100 to-indigo-100">
+      <h3 className="text-3xl font-bold text-center p-4">
         {`Today's mood Entries for ${user?.team?.teamName || "your"} team:`}
       </h3>
       <AverageMoodComponent context={"Today's"} entries={todayEntries} />
@@ -43,7 +43,7 @@ function AnalyticsTeamPage() {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
