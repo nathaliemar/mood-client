@@ -5,6 +5,7 @@ import { getTodayDateAtMidnight } from "../utils/dateUtils";
 import { AuthContext } from "../context/auth.context";
 import { MoodEntryCard } from "../components/MoodEntryCard";
 import { handleApiError } from "../utils/handleApiError";
+import { AverageMoodComponent } from "../components/AverageMoodComponent";
 
 function AnalyticsTeamPage() {
   const [todayEntries, setTodayEntries] = useState([]);
@@ -26,13 +27,13 @@ function AnalyticsTeamPage() {
     fetchTodaysEntries();
   }, [user]);
 
-  //todo: add page for users w/o team
   // todo: adjust context for admins
   return (
     <>
       <h3 className="text-3xl font-bold text-center my-6">
         {`Today's mood Entries for ${user?.team?.teamName || "your"} team:`}
       </h3>
+      <AverageMoodComponent entries={todayEntries} />
       <div className="flex justify-center">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {todayEntries.map((entry) => (
