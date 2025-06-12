@@ -34,18 +34,22 @@ const Navbar = () => {
                   My Team
                 </Link>
               )}
-              <Link
-                to="/settings/users"
-                className="text-gray-600 hover:text-gray-900"
-              >
-                Users
-              </Link>
-              <Link
-                to="/settings/teams"
-                className="text-gray-600 hover:text-gray-900"
-              >
-                Teams
-              </Link>
+              {user?.role === "admin" && (
+                <>
+                  <Link
+                    to="/settings/users"
+                    className="text-gray-600 hover:text-gray-900"
+                  >
+                    Users
+                  </Link>
+                  <Link
+                    to="/settings/teams"
+                    className="text-gray-600 hover:text-gray-900"
+                  >
+                    Teams
+                  </Link>
+                </>
+              )}
             </>
           )}
 
