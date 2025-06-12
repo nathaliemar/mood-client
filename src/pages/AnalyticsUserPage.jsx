@@ -3,6 +3,7 @@ import { handleApiError } from "../utils/handleApiError";
 import { api } from "../services/api";
 import { useAuthContext } from "../context/auth.context";
 import { MoodEntryCard } from "../components/MoodEntryCard";
+import { WeeklyMoodChart } from "../components/WeeklyMoodChart";
 
 function AnalyticsUserPage() {
   const [entries, setEntries] = useState([]);
@@ -34,6 +35,10 @@ function AnalyticsUserPage() {
             <MoodEntryCard moodEntry={entry} />
           </div>
         ))}
+      </div>
+      <div className="flex flex-col items-center my-8">
+        <h4 className="text-xl font-semibold mb-4">Your mood trend</h4>
+        <WeeklyMoodChart entries={entries} />
       </div>
     </div>
   );
