@@ -4,6 +4,7 @@ import { api } from "../services/api";
 import { getTodayDateAtMidnight } from "../utils/dateUtils";
 import { AuthContext } from "../context/auth.context";
 import { MoodEntryCard } from "../components/MoodEntryCard";
+import { handleApiError } from "../utils/handleApiError";
 
 function AnalyticsTeamPage() {
   const [todayEntries, setTodayEntries] = useState([]);
@@ -17,7 +18,7 @@ function AnalyticsTeamPage() {
       setTodayEntries(res.data);
     } catch (error) {
       if (error.response?.status === 404) setTodayEntries(null); //expected
-      console.log(error);
+      handleApiError(error);
     }
   };
   //Call in useeffect

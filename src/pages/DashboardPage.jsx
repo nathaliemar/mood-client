@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { MoodEntryForm } from "../components/MoodEntryForm";
 import { api } from "../services/api";
 import Confetti from "react-confetti";
@@ -6,6 +6,7 @@ import { useAuthContext } from "../context/auth.context";
 import { MoodEntryCard } from "../components/MoodEntryCard";
 import { getTodayDateAtMidnight } from "../utils/dateUtils";
 import { HeroComponent } from "../components/HeroComponent";
+import { handleApiError } from "../utils/handleApiError";
 
 function DashboardPage() {
   const [errorMsg, setErrorMsg] = useState();
@@ -30,10 +31,8 @@ function DashboardPage() {
       console.log(errorMsg);
     } finally {
       setEntryIsLoading(false);
-      console.log("get entry is done", todayEntry);
     }
   };
-  //call in useeffect
   useEffect(() => {
     // Only fetch if auth is done and user is present
     if (!isLoading && user?._id) {
@@ -49,11 +48,11 @@ function DashboardPage() {
     };
     try {
       const res = await api.post("/api/moodentries", reqBody);
-      setShowConfetti(true); // Show confetti
-      setTimeout(() => setShowConfetti(false), 5000); // Hide after 5s
+      setShowConfetti(true);
+      setTimeout(() => setShowConfetti(false), 8000);
       setTodayEntry(res.data);
     } catch (error) {
-      setErrorMsg(error);
+      handleApiError(error);
     }
   };
 
@@ -83,7 +82,6 @@ function DashboardPage() {
           <MoodEntryForm onSubmit={handleMoodEntry} />
         </div>
       )}
-      {errorMsg && <div className="text-red-600">{errorMsg.toString()}</div>}
     </div>
   );
 }

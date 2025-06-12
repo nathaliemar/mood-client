@@ -1,3 +1,4 @@
+import { userFacingDate } from "../utils/dateUtils";
 import { moodOptions } from "../utils/moodOptions";
 
 function MoodEntryCard({ moodEntry }) {
@@ -5,11 +6,12 @@ function MoodEntryCard({ moodEntry }) {
     createdBy: { imageUrl, firstName, lastName },
     score,
     note,
+    date,
   } = moodEntry;
   const mood = moodOptions.find((option) => option.value === score);
 
   return (
-    <div className="flex items-start gap-6 border border-gray-200 rounded-lg p-6 max-w-lg bg-white shadow">
+    <div className="flex items-start gap-6 border border-gray-200 rounded-lg p-6 w-lg bg-white shadow">
       <img
         src={imageUrl}
         alt={`${firstName} ${lastName}`}
@@ -17,10 +19,12 @@ function MoodEntryCard({ moodEntry }) {
       />
       <div className="w-full">
         <div className="grid grid-cols-2 gap-y-3">
-          <div className="font-semibold text-left">First Name:</div>
-          <div className="text-left">{firstName}</div>
-          <div className="font-semibold text-left">Last Name:</div>
-          <div className="text-left">{lastName}</div>
+          <div className="font-semibold text-left">Name:</div>
+          <div className="text-left">
+            {firstName} {lastName}
+          </div>
+          <div className="font-semibold text-left">Date:</div>
+          <div className="text-left">{userFacingDate(date)}</div>
           <div className="font-semibold text-left">Today's mood:</div>
           <div className="text-left">{mood ? mood.emoji : ""}</div>
           <div className="font-semibold text-left">Note:</div>
