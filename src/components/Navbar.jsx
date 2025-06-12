@@ -21,10 +21,16 @@ const Navbar = () => {
           {isLoggedIn && (
             <>
               <Link
+                to="/analytics/user"
+                className="text-gray-600 hover:text-gray-900"
+              >
+                My Entries
+              </Link>
+              <Link
                 to="/analytics/team"
                 className="text-gray-600 hover:text-gray-900"
               >
-                Analytics
+                My Team
               </Link>
               <Link
                 to="/settings/users"
