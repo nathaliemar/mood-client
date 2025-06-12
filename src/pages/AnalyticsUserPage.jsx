@@ -26,8 +26,12 @@ function AnalyticsUserPage() {
 
   return (
     <div>
-      <h3 className="text-3xl font-bold text-center my-6">
-        Your mood history:
+      <div className="flex flex-col items-center my-8">
+        <h3 className="text-2xl font-semibold mb-4">Your mood trend</h3>
+        <WeeklyMoodChart entries={entries} />
+      </div>
+      <h3 className="text-2xl font-bold text-center my-6">
+        View all mood entries
       </h3>
       <div className="flex flex-col items-center">
         {entries.map((entry) => (
@@ -35,10 +39,6 @@ function AnalyticsUserPage() {
             <MoodEntryCard moodEntry={entry} />
           </div>
         ))}
-      </div>
-      <div className="flex flex-col items-center my-8">
-        <h4 className="text-xl font-semibold mb-4">Your mood trend</h4>
-        <WeeklyMoodChart entries={entries} />
       </div>
     </div>
   );
