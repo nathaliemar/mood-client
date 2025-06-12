@@ -12,7 +12,7 @@ const Navbar = () => {
         <Link to={"/"}>
           <div className="text-xl font-semibold text-gray-800">MoodApp</div>
         </Link>
-        <div className="space-x-4 hidden md:flex flex items-center">
+        <div className="space-x-4  md:flex flex items-center">
           {/* Show "Home" if not logged in, "Dashboard" if logged in */}
           <Link to="/" className="text-gray-600 hover:text-gray-900">
             {isLoggedIn ? "Dashboard" : "Home"}

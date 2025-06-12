@@ -13,6 +13,7 @@ function AnalyticsUserPage() {
     try {
       const res = await api.get(`/api/moodentries/user/${user._id}`);
       setEntries(res.data);
+      console.log(entries);
     } catch (error) {
       console.log(error);
       handleApiError(error);

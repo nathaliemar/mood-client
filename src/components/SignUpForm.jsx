@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-function SignUpForm({ onSubmit, errorMsg }) {
+function SignUpForm({ onSubmit, errorMsg, companyId, companyName }) {
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -12,6 +12,12 @@ function SignUpForm({ onSubmit, errorMsg }) {
   const passwordHint =
     "At least 8 characters, incl. an uppercase,number, and symbol";
 
+  useEffect(() => {
+    if (companyId) {
+      setForm((prev) => ({ ...prev, company: companyId }));
+    }
+  }, [companyId]);
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -19,12 +25,10 @@ function SignUpForm({ onSubmit, errorMsg }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(form);
-    console.log("Form submitted:", form);
   };
 
   return (
     <>
-      {" "}
       {errorMsg && <div className="text-red-500 mb-2">{errorMsg}</div>}
       <form
         className="w-full max-w-md mx-auto p-6 bg-white rounded-lg shadow flex flex-col gap-4"
@@ -98,74 +102,41 @@ function SignUpForm({ onSubmit, errorMsg }) {
           </div>
         </div>
 
-        {/* Company Name */}
-        <div className="flex flex-col gap-1">
-          <label className="font-medium text-sm flex items-center gap-1">
-            Company Name <span className="text-red-500">*</span>
-            <span
-              className="ml-1 text-blue-400"
-              title="This will help us find your colleagues"
-              aria-label="Info"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="inline w-4 h-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  fill="none"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 16v-4m0-4h.01"
-                />
-              </svg>
+        {/* Company Field */}
+        {companyId ? (
+          <div className="flex flex-col gap-1">
+            <label className="font-medium text-sm">Company</label>
+            <input
+              className="border rounded px-3 py-2 text-sm bg-gray-100 text-gray-500"
+              type="text"
+              name="company"
+              value={companyName || companyId}
+              disabled
+              readOnly
+            />
+            <span className="text-xs text-gray-400">
+              You are signing up for <b>{companyName || companyId}</b>
             </span>
-          </label>
-          <input
-            className="border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-200 border-gray-300"
-            type="text"
-            name="company"
-            autoComplete="organization"
-            value={form.company}
-            onChange={handleChange}
-            onBlur={handleChange}
-          />
-          <span className="text-xs text-gray-400 flex items-center gap-1">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="inline w-3 h-3"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="2"
-                fill="none"
-              />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 16v-4m0-4h.01"
-              />
-            </svg>
-            This will help us find your colleagues
-          </span>
-        </div>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-1">
+            <label className="font-medium text-sm">
+              Company Name <span className="text-red-500">*</span>
+            </label>
+            <input
+              className="border rounded px-3 py-2 text-sm"
+              type="text"
+              name="company"
+              value={form.company}
+              onChange={handleChange}
+              required
+              placeholder="Enter your company name"
+            />
+            <span className="text-xs text-gray-400">
+              This will create a new company account.
+            </span>
+          </div>
+        )}
 
         {/* Submit Button */}
         <button

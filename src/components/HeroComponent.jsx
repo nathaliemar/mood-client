@@ -16,7 +16,7 @@ const HeroComponent = () => (
         </p>
         <div className="flex gap-4">
           <a
-            href="/signup"
+            href="/signup?from=newsignup"
             className="px-8 py-3 bg-pink-400 hover:bg-pink-500 text-white rounded-lg font-semibold shadow transition text-lg"
           >
             Sign Up

@@ -4,9 +4,23 @@ import { UserListItem } from "../components/UserListItem";
 import { Link } from "react-router-dom";
 import { handleApiError } from "../utils/handleApiError";
 import { UserListHeader } from "../components/UserListHeader";
+import { useAuthContext } from "../context/auth.context";
+import toast from "react-hot-toast";
 
 function UserListPage() {
+  const { user } = useAuthContext();
   const [users, setUsers] = useState([]);
+
+  const handleCopyInviteLink = () => {
+    if (!user?.company) {
+      toast.error("No company ID found.");
+      return;
+    }
+    const inviteUrl = `${window.location.origin}/signup?companyId=${user.company}`;
+    navigator.clipboard.writeText(inviteUrl);
+    toast.success("Invite link copied!");
+  };
+
   const fetchUsers = async () => {
     try {
       const res = await api.get("/api/users");
@@ -24,6 +38,12 @@ function UserListPage() {
 
   return (
     <>
+      <button
+        className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        onClick={handleCopyInviteLink}
+      >
+        Copy Invite Link
+      </button>
       <UserListHeader />
       <div>
         {users
