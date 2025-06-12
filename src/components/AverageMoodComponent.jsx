@@ -1,6 +1,6 @@
 import { moodOptions } from "../utils/moodOptions";
 
-function AverageMoodComponent({ entries }) {
+function AverageMoodComponent({ entries, context }) {
   if (!entries || entries.length === 0) {
     return (
       <div className="p-6 bg-white rounded shadow text-center">
@@ -19,7 +19,7 @@ function AverageMoodComponent({ entries }) {
 
   return (
     <div className="p-6 bg-white rounded shadow text-center">
-      <h3 className="text-xl font-bold mb-2">Today's average mood</h3>
+      <h3 className="text-xl font-bold mb-2">{`${context} average mood`}</h3>
       {mood ? (
         <div>
           <div className="text-6xl mb-2">{mood.emoji}</div>
