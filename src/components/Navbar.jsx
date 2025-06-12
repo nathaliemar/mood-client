@@ -26,12 +26,14 @@ const Navbar = () => {
               >
                 My Entries
               </Link>
-              <Link
-                to="/analytics/team"
-                className="text-gray-600 hover:text-gray-900"
-              >
-                My Team
-              </Link>
+              {user?.team && (
+                <Link
+                  to="/analytics/team"
+                  className="text-gray-600 hover:text-gray-900"
+                >
+                  My Team
+                </Link>
+              )}
               <Link
                 to="/settings/users"
                 className="text-gray-600 hover:text-gray-900"
