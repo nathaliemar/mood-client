@@ -168,7 +168,7 @@ const UserCard = ({ user, refreshUser }) => {
             <div className="font-semibold text-left">Role:</div>
             <select
               name="role"
-              value={capitalize(form.role) || "User"}
+              value={form.role}
               onChange={handleChange}
               className="border rounded px-2 py-1"
               required
