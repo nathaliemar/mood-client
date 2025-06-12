@@ -26,7 +26,7 @@ function AnalyticsUserPage() {
   return (
     <div>
       <h3 className="text-3xl font-bold text-center my-6">
-        Your mood history:{" "}
+        Your mood history:
       </h3>
       <div className="flex flex-col items-center">
         {entries.map((entry) => (
