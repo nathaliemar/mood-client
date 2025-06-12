@@ -25,8 +25,8 @@ function AnalyticsUserPage() {
   }, [user]);
 
   return (
-    <div>
-      <div className="flex flex-col items-center my-8">
+    <div className="min-h-screen bg-gradient-to-br from-pink-200 via-blue-100 to-indigo-100">
+      <div className="flex flex-col items-center p-4">
         <h3 className="text-2xl font-semibold mb-4">Your mood trend</h3>
         <WeeklyMoodChart entries={entries} />
       </div>
