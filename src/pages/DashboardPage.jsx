@@ -66,19 +66,50 @@ function DashboardPage() {
   }
 
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center min-h-[60vh]">
       {showConfetti && <Confetti />}
       <h1 className="text-4xl font-bold mb-4">
-        Hello{user?.firstName ? `, ${user.firstName}` : "there"}!
+        Hello{user?.firstName ? `, ${user.firstName}` : "there"}! 👋
       </h1>
       {todayEntry ? (
-        <div>
-          You already submitted for today!
-          <br />
+        <div className="flex flex-col items-center">
+          <h4 className="mb-4">
+            Nice job! You already submitted for today! 😎
+          </h4>
           <MoodEntryCard moodEntry={todayEntry} />
+          {/* Conditional rendering based on user.team */}
+          {user?.team ? (
+            <>
+              <h4 className="m-4">Check out how your team is doing</h4>
+              <div className="flex gap-4">
+                <a
+                  href="/analytics/team"
+                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+                >
+                  View my team
+                </a>
+                <a
+                  href="/analytics/user"
+                  className="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition"
+                >
+                  View my history
+                </a>
+              </div>
+            </>
+          ) : (
+            <>
+              <h4 className="m-4">Check out how you've been doing</h4>
+              <a
+                href="/analytics/user"
+                className="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition"
+              >
+                View my history
+              </a>
+            </>
+          )}
         </div>
       ) : (
-        <div>
+        <div className="flex flex-col items-center">
           <MoodEntryForm onSubmit={handleMoodEntry} />
         </div>
       )}
