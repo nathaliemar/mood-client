@@ -191,15 +191,29 @@ const UserCard = ({ user, refreshUser }) => {
               ))}
             </select>
             <div className="font-semibold text-left">Is teamlead:</div>
-            <label className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                name="isTeamlead"
-                checked={form.isTeamlead}
-                onChange={handleChange}
-              />
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() =>
+                  setForm((prev) => ({
+                    ...prev,
+                    isTeamlead: !prev.isTeamlead,
+                  }))
+                }
+                className={`relative w-12 h-6 rounded-full transition-colors duration-200 focus:outline-none ${
+                  form.isTeamlead ? "bg-green-500" : "bg-gray-300"
+                }`}
+                aria-pressed={form.isTeamlead}
+                aria-label="Toggle teamlead"
+              >
+                <span
+                  className={`absolute left-0 top-0 w-6 h-6 bg-white rounded-full shadow transform transition-transform duration-200 ${
+                    form.isTeamlead ? "translate-x-6" : ""
+                  }`}
+                />
+              </button>
               <span>{form.isTeamlead ? "Yes" : "No"}</span>
-            </label>
+            </div>
             {/* Buttons */}
             <div className="col-span-2 flex gap-2 mt-6">
               <button
