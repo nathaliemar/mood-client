@@ -25,6 +25,7 @@ function TeamListPage() {
     try {
       const res = await api.get("/api/users");
       setUsers(res.data);
+      console.log(users);
     } catch (error) {
       handleApiError(error);
       setUsers([]);

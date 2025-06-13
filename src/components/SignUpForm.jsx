@@ -38,7 +38,11 @@ function SignUpForm({ onSubmit, errorMsg, companyId, companyName }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(form);
+    const cleanForm = {
+      ...form,
+      email: form.email.trim().toLowerCase(),
+    };
+    onSubmit(cleanForm);
   };
 
   // Dynamic title and button text
