@@ -16,6 +16,7 @@ function AnalyticsTeamPage() {
       const res = await api.get(
         `/api/moodentries/today?date=${getTodayDateAtMidnight()}`
       );
+      console.log(user);
       setTodayEntries(res.data);
     } catch (error) {
       if (error.response?.status === 404) setTodayEntries(null); //expected
@@ -35,13 +36,22 @@ function AnalyticsTeamPage() {
       </h3>
       <AverageMoodComponent context={"Today's"} entries={todayEntries} />
       <div className="flex justify-center">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {todayEntries.map((entry) => (
-            <div key={entry._id} className="m-4">
-              <MoodEntryCard moodEntry={entry} />
+        {todayEntries && todayEntries.length === 1 ? (
+          <div className="flex justify-center">
+            <div className="m-4">
+              <MoodEntryCard moodEntry={todayEntries[0]} />
             </div>
-          ))}
-        </div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {todayEntries &&
+              todayEntries.map((entry) => (
+                <div key={entry._id} className="m-4">
+                  <MoodEntryCard moodEntry={entry} />
+                </div>
+              ))}
+          </div>
+        )}
       </div>
     </div>
   );
