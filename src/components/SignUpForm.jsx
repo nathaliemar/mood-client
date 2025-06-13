@@ -1,6 +1,20 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+// Simple info icon with tooltip
+function InfoTooltip({ message }) {
+  return (
+    <span className="relative group ml-2 inline-block align-middle">
+      <span className="w-5 h-5 rounded-full bg-blue-200 text-blue-700 flex items-center justify-center text-xs font-bold cursor-pointer">
+        i
+      </span>
+      <span className="absolute left-1/2 -translate-x-1/2 mt-2 w-64 bg-gray-800 text-white text-xs rounded p-2 opacity-0 group-hover:opacity-100 pointer-events-none z-10 transition-opacity duration-200">
+        {message}
+      </span>
+    </span>
+  );
+}
+
 function SignUpForm({ onSubmit, errorMsg, companyId, companyName }) {
   const [form, setForm] = useState({
     email: "",
@@ -10,7 +24,7 @@ function SignUpForm({ onSubmit, errorMsg, companyId, companyName }) {
     company: "",
   });
   const passwordHint =
-    "At least 8 characters, incl. an uppercase,number, and symbol";
+    "At least 8 characters, incl. an uppercase, number, and symbol";
 
   useEffect(() => {
     if (companyId) {
@@ -27,6 +41,25 @@ function SignUpForm({ onSubmit, errorMsg, companyId, companyName }) {
     onSubmit(form);
   };
 
+  // Dynamic title and button text
+  const isInvite = !!companyId;
+  const title = isInvite ? (
+    <span>
+      Create your user account with{" "}
+      <span className="text-blue-600 font-semibold">
+        {companyName || "this company"}
+      </span>
+    </span>
+  ) : (
+    <span>
+      Create a new company account
+      <InfoTooltip message="You create a new account for your company. Upon signup, you will have Admin rights and can invite your colleagues to the platform." />
+    </span>
+  );
+  const buttonText = isInvite
+    ? "Create my account"
+    : "Create company and my admin account";
+
   return (
     <>
       {errorMsg && <div className="text-red-500 mb-2">{errorMsg}</div>}
@@ -35,6 +68,9 @@ function SignUpForm({ onSubmit, errorMsg, companyId, companyName }) {
         onSubmit={handleSubmit}
         noValidate
       >
+        <h2 className="text-2xl font-bold text-center mb-4 flex items-center justify-center gap-2">
+          {title}
+        </h2>
         {/* Email */}
         <div className="flex flex-col gap-1">
           <label className="font-medium text-sm">
@@ -143,7 +179,7 @@ function SignUpForm({ onSubmit, errorMsg, companyId, companyName }) {
           type="submit"
           className="mt-2 bg-blue-600 text-white rounded py-2 font-semibold hover:bg-blue-700 transition"
         >
-          Sign up!
+          {buttonText}
         </button>
 
         {/* Divider and Login Link */}
