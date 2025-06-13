@@ -13,7 +13,11 @@ function LoginForm({ onSubmit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit && onSubmit(form);
+    const cleanForm = {
+      ...form,
+      email: form.email.trim().toLowerCase(),
+    };
+    onSubmit(cleanForm);
   };
 
   return (
