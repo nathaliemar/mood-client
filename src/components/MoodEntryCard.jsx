@@ -5,6 +5,15 @@ function MoodEntryCard({ moodEntry, user }) {
   const { createdBy, score, note, date } = moodEntry;
   // Prefer user prop if present, fallback to createdBy (for use outside Dashboard)
   const displayUser = user || createdBy;
+
+  // Fallback if displayUser is null/undefined
+  if (!displayUser) {
+    return (
+      <div className="flex items-center justify-center border border-gray-200 rounded-lg p-6 w-lg bg-white shadow text-gray-500">
+        User information not available
+      </div>
+    );
+  }
   const { imageUrl, firstName, lastName } = displayUser;
 
   const mood = moodOptions.find((option) => option.value === score);
