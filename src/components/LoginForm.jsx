@@ -18,14 +18,14 @@ function LoginForm({ onSubmit }) {
 
   return (
     <>
-      <div className="text-xl font-semibold text-center mb-4">
-        Welcome back!
-      </div>
       <form
         className="w-full max-w-md mx-auto p-6 bg-white rounded-lg shadow flex flex-col gap-4"
         onSubmit={handleSubmit}
         noValidate
       >
+        <div className="text-xl font-semibold text-center mb-4">
+          Welcome back! 👋
+        </div>
         {/* Email */}
         <div className="flex flex-col gap-1">
           <label className="font-medium text-sm">

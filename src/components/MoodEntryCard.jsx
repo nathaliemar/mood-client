@@ -1,13 +1,12 @@
 import { userFacingDate } from "../utils/dateUtils";
 import { moodOptions } from "../utils/moodOptions";
 
-function MoodEntryCard({ moodEntry }) {
-  const {
-    createdBy: { imageUrl, firstName, lastName },
-    score,
-    note,
-    date,
-  } = moodEntry;
+function MoodEntryCard({ moodEntry, user }) {
+  const { createdBy, score, note, date } = moodEntry;
+  // Prefer user prop if present, fallback to createdBy (for use outside Dashboard)
+  const displayUser = user || createdBy;
+  const { imageUrl, firstName, lastName } = displayUser;
+
   const mood = moodOptions.find((option) => option.value === score);
 
   return (
