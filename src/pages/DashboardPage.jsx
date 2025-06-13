@@ -7,6 +7,7 @@ import { MoodEntryCard } from "../components/MoodEntryCard";
 import { getTodayDateAtMidnight } from "../utils/dateUtils";
 import { HeroComponent } from "../components/HeroComponent";
 import { handleApiError } from "../utils/handleApiError";
+import { TextBox } from "../components/TextBox";
 
 function DashboardPage() {
   const [errorMsg, setErrorMsg] = useState();
@@ -69,7 +70,7 @@ function DashboardPage() {
     <div className="min-h-screen bg-gradient-to-br from-pink-200 via-blue-100 to-indigo-100">
       <div className="flex flex-col items-center justify-center min-h-[60vh]">
         {showConfetti && <Confetti />}
-        <h1 className="text-4xl font-bold mb-4">
+        <h1 className="text-4xl font-bold mb-4 p-4">
           Hello{user?.firstName ? `, ${user.firstName}` : "there"}! 👋
         </h1>
         {todayEntry ? (
@@ -111,6 +112,14 @@ function DashboardPage() {
           </div>
         ) : (
           <div className="flex flex-col items-center">
+            <div className="mb-6 w-full flex justify-center">
+              <TextBox
+                title="Welcome to the MoodApp!"
+                text={`Hey ${
+                  user?.firstName || ""
+                }, welcome to MoodApp, your go-to place to log your daily mood and see how your colleagues are doing! Get started now by creating your first mood entry! Afterwards, you'll unlock analytics and can see data from your team. PS: Your data will be visible to your team, and Admins only. Submit your mood now! ⬇️ `}
+              />
+            </div>
             <MoodEntryForm onSubmit={handleMoodEntry} />
           </div>
         )}
