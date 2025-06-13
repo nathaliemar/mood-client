@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { api } from "../services/api";
 import { TeamListItem } from "../components/TeamListItem";
+import { TextBox } from "../components/TextBox";
 import toast from "react-hot-toast";
 import { handleApiError } from "../utils/handleApiError";
 
@@ -86,14 +87,23 @@ function TeamListPage() {
         </form>
       )}
       <div className="m-4">
-        {teams.map((team) => (
-          <TeamListItem
-            key={team._id}
-            team={team}
-            users={users}
-            refreshTeams={fetchTeams}
-          />
-        ))}
+        {teams.length === 0 ? (
+          <div className="flex justify-center items-center min-h-[300px] m-4">
+            <TextBox
+              title="Start creating your first team"
+              text="Only when being part of a team, users will be able to see data of their collegues. Get started by creating your first team now. Afterwards, you can assign it to your users via the user list"
+            />
+          </div>
+        ) : (
+          teams.map((team) => (
+            <TeamListItem
+              key={team._id}
+              team={team}
+              users={users}
+              refreshTeams={fetchTeams}
+            />
+          ))
+        )}
       </div>
     </>
   );

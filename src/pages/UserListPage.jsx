@@ -39,27 +39,30 @@ function UserListPage() {
   return (
     <>
       <button
-        className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 m-4"
         onClick={handleCopyInviteLink}
       >
         Copy Invite Link
       </button>
-      <UserListHeader />
-      <div>
-        {users
-          .slice() // avoid mutating state
-          .sort((a, b) => {
-            // Users without team come first
-            if (!a.team && b.team) return -1;
-            if (a.team && !b.team) return 1;
-            // Both have or don't have a team: sort by firstName
-            return a.firstName.localeCompare(b.firstName);
-          })
-          .map((user) => (
-            <Link to={`/settings/users/${user._id}`} key={user._id}>
-              <UserListItem user={user} />
-            </Link>
-          ))}
+      <div className="p-4">
+        {" "}
+        <UserListHeader />
+        <div>
+          {users
+            .slice() // avoid mutating state
+            .sort((a, b) => {
+              // Users without team come first
+              if (!a.team && b.team) return -1;
+              if (a.team && !b.team) return 1;
+              // Both have or don't have a team: sort by firstName
+              return a.firstName.localeCompare(b.firstName);
+            })
+            .map((user) => (
+              <Link to={`/settings/users/${user._id}`} key={user._id}>
+                <UserListItem user={user} />
+              </Link>
+            ))}
+        </div>
       </div>
     </>
   );
