@@ -14,7 +14,10 @@ function DashboardPage() {
   const [showConfetti, setShowConfetti] = useState(false);
   const [todayEntry, setTodayEntry] = useState(null);
   const [entryIsLoading, setEntryIsLoading] = useState(false);
-  const { user, isLoading } = useAuthContext();
+  const { user, isLoading, verifyToken } = useAuthContext();
+
+  // New state for users without team (admin only)
+  const [hasUsersWithoutTeam, setHasUsersWithoutTeam] = useState(false);
 
   //First thing: Get today's entry if there is one
   const fetchTodayEntry = async () => {
@@ -41,6 +44,26 @@ function DashboardPage() {
     }
   }, [user?._id, isLoading]);
 
+  // Fetch all users if admin to check for users without team
+  useEffect(() => {
+    const fetchUsersIfAdmin = async () => {
+      if (user?.role === "admin") {
+        try {
+          const res = await api.get("/api/users");
+          // Check if any user has no team
+          const anyWithoutTeam = res.data.some((u) => !u.team);
+          setHasUsersWithoutTeam(anyWithoutTeam);
+        } catch (err) {
+          // Ignore error for this banner
+          setHasUsersWithoutTeam(false);
+        }
+      }
+    };
+    if (!isLoading && user?._id) {
+      fetchUsersIfAdmin();
+    }
+  }, [user?._id, user?.role, isLoading]);
+
   const handleMoodEntry = async ({ mood, comment }) => {
     const reqBody = {
       score: mood,
@@ -52,6 +75,8 @@ function DashboardPage() {
       setShowConfetti(true);
       setTimeout(() => setShowConfetti(false), 8000);
       setTodayEntry(res.data);
+      await verifyToken();
+      await fetchTodayEntry();
     } catch (error) {
       handleApiError(error);
     }
@@ -68,6 +93,18 @@ function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-200 via-blue-100 to-indigo-100">
+      {/* Admin banner for users without team */}
+      {user?.role === "admin" && hasUsersWithoutTeam && (
+        <div className="bg-yellow-200 text-yellow-900 px-4 py-3 text-center font-semibold">
+          There are currently users without a team assigned!{" "}
+          <a
+            href="/settings/users"
+            className="underline text-blue-700 hover:text-blue-900"
+          >
+            Assign them now
+          </a>
+        </div>
+      )}
       <div className="flex flex-col items-center justify-center min-h-[60vh]">
         {showConfetti && <Confetti />}
         <h1 className="text-4xl font-bold mb-4 p-4">
@@ -78,7 +115,7 @@ function DashboardPage() {
             <h4 className="mb-4">
               Nice job! You already submitted for today! 😎
             </h4>
-            <MoodEntryCard moodEntry={todayEntry} />
+            <MoodEntryCard moodEntry={todayEntry} user={user} />
             {/* Conditional rendering based on user.team */}
             {user?.team ? (
               <>
