@@ -6,10 +6,13 @@ import { AuthContext } from "../context/auth.context";
 import { MoodEntryCard } from "../components/MoodEntryCard";
 import { handleApiError } from "../utils/handleApiError";
 import { AverageMoodComponent } from "../components/AverageMoodComponent";
+import { LoadingSpinner } from "../components/LoadingSpinner";
 
 function AnalyticsTeamPage() {
   const [todayEntries, setTodayEntries] = useState([]);
   const { user } = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
+
   //API returns teams based on user's role & team membership
   const fetchTodaysEntries = async () => {
     try {
@@ -22,11 +25,21 @@ function AnalyticsTeamPage() {
       if (error.response?.status === 404) setTodayEntries(null); //expected
       handleApiError(error);
     }
+    setLoading(false);
   };
   //Call in useeffect
   useEffect(() => {
+    setLoading(true);
     fetchTodaysEntries();
   }, [user]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
   // todo: adjust context for admins
   return (

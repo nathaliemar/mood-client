@@ -8,12 +8,14 @@ import { getTodayDateAtMidnight } from "../utils/dateUtils";
 import { HeroComponent } from "../components/HeroComponent";
 import { handleApiError } from "../utils/handleApiError";
 import { TextBox } from "../components/TextBox";
+import { LoadingSpinner } from "../components/LoadingSpinner";
 
 function DashboardPage() {
   const [errorMsg, setErrorMsg] = useState();
   const [showConfetti, setShowConfetti] = useState(false);
   const [todayEntry, setTodayEntry] = useState(null);
   const [entryIsLoading, setEntryIsLoading] = useState(false);
+  const [allEntries, setAllEntries] = useState([]);
   const { user, isLoading, verifyToken } = useAuthContext();
 
   // New state for users without team (admin only)
@@ -32,7 +34,6 @@ function DashboardPage() {
     } catch (error) {
       if (error.response?.status === 404) setTodayEntry(null); //expected
       else setErrorMsg("Error fetching today's entry");
-      console.log(errorMsg);
     } finally {
       setEntryIsLoading(false);
     }
@@ -64,6 +65,23 @@ function DashboardPage() {
     }
   }, [user?._id, user?.role, isLoading]);
 
+  // Fetch all entries for the user (for welcome message logic)
+  const fetchAllEntries = async () => {
+    try {
+      const res = await api.get(`/api/moodentries/user/${user._id}`);
+      setAllEntries(res.data);
+    } catch (error) {
+      setAllEntries([]);
+      handleApiError(error); // fallback: treat as no entries
+    }
+  };
+
+  useEffect(() => {
+    if (!isLoading && user?._id) {
+      fetchAllEntries();
+    }
+  }, [user?._id, isLoading]);
+
   const handleMoodEntry = async ({ mood, comment }) => {
     const reqBody = {
       score: mood,
@@ -83,7 +101,11 @@ function DashboardPage() {
   };
 
   if (isLoading || entryIsLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <LoadingSpinner />
+      </div>
+    );
   }
 
   //Dispayed for not logged in users
@@ -149,14 +171,17 @@ function DashboardPage() {
           </div>
         ) : (
           <div className="flex flex-col items-center">
-            <div className="mb-6 w-full flex justify-center">
-              <TextBox
-                title="Welcome to the MoodApp!"
-                text={`Hey ${
-                  user?.firstName || ""
-                }, welcome to MoodApp, your go-to place to log your daily mood and see how your colleagues are doing! Get started now by creating your first mood entry! Afterwards, you'll unlock analytics and can see data from your team. PS: Your data will be visible to your team, and Admins only. Submit your mood now! ⬇️ `}
-              />
-            </div>
+            {/* Only show welcome TextBox if user has no entries at all */}
+            {allEntries.length === 0 && (
+              <div className="mb-6 w-full flex justify-center">
+                <TextBox
+                  title="Welcome to the MoodApp!"
+                  text={`Hey ${
+                    user?.firstName || ""
+                  }, welcome to MoodApp, your go-to place to log your daily mood and see how your colleagues are doing! Get started now by creating your first mood entry! Afterwards, you'll unlock analytics and can see data from your team. PS: Your data will be visible to your team, and Admins only. Submit your mood now! ⬇️ `}
+                />
+              </div>
+            )}
             <MoodEntryForm onSubmit={handleMoodEntry} />
           </div>
         )}

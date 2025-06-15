@@ -6,10 +6,12 @@ import { handleApiError } from "../utils/handleApiError";
 import { UserListHeader } from "../components/UserListHeader";
 import { useAuthContext } from "../context/auth.context";
 import toast from "react-hot-toast";
+import { LoadingSpinner } from "../components/LoadingSpinner";
 
 function UserListPage() {
   const { user } = useAuthContext();
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const handleCopyInviteLink = () => {
     if (!user?.company) {
@@ -30,9 +32,11 @@ function UserListPage() {
       handleApiError(err);
       setUsers([]);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
+    setLoading(true);
     fetchUsers();
   }, []);
 
@@ -45,23 +49,28 @@ function UserListPage() {
         Copy Invite Link
       </button>
       <div className="p-4">
-        {" "}
         <UserListHeader />
         <div>
-          {users
-            .slice() // avoid mutating state
-            .sort((a, b) => {
-              // Users without team come first
-              if (!a.team && b.team) return -1;
-              if (a.team && !b.team) return 1;
-              // Both have or don't have a team: sort by firstName
-              return a.firstName.localeCompare(b.firstName);
-            })
-            .map((user) => (
-              <Link to={`/settings/users/${user._id}`} key={user._id}>
-                <UserListItem user={user} />
-              </Link>
-            ))}
+          {loading ? (
+            <div className="flex justify-center items-center min-h-[300px] m-4">
+              <LoadingSpinner />
+            </div>
+          ) : (
+            users
+              .slice() // avoid mutating state
+              .sort((a, b) => {
+                // Users without team come first
+                if (!a.team && b.team) return -1;
+                if (a.team && !b.team) return 1;
+                // Both have or don't have a team: sort by firstName
+                return a.firstName.localeCompare(b.firstName);
+              })
+              .map((user) => (
+                <Link to={`/settings/users/${user._id}`} key={user._id}>
+                  <UserListItem user={user} />
+                </Link>
+              ))
+          )}
         </div>
       </div>
     </>
