@@ -134,10 +134,14 @@ function DashboardPage() {
         </h1>
         {todayEntry ? (
           <div className="flex flex-col items-center">
-            <h4 className="mb-4">
+            <h4 className="mb-4 text-center">
               Nice job! You already submitted for today! 😎
+              <br />
+              In case you forgot, here's your entry:
             </h4>
-            <MoodEntryCard moodEntry={todayEntry} user={user} />
+            <div className="flex justify-center w-full">
+              <MoodEntryCard moodEntry={todayEntry} user={user} />
+            </div>
             {/* Conditional rendering based on user.team */}
             {user?.team ? (
               <>
