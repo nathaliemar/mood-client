@@ -19,7 +19,7 @@ function MoodEntryCard({ moodEntry, user }) {
   const mood = moodOptions.find((option) => option.value === score);
 
   return (
-    <div className="flex items-start gap-6 border border-gray-200 rounded-lg p-6 w-full max-w-md bg-white shadow">
+    <div className="flex items-start gap-6 border border-gray-200 rounded-lg p-6 w-full max-w-md bg-white shadow h-full">
       <img
         src={imageUrl}
         alt={`${firstName} ${lastName}`}
