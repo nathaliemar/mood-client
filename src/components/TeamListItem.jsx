@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { api } from "../services/api";
 import { handleApiError } from "../utils/handleApiError";
 
@@ -21,6 +21,8 @@ const TeamListItem = ({ team, refreshTeams, users = [] }) => {
     e.preventDefault();
     try {
       await api.put(`api/teams/${team._id}`, { teamName: editName });
+      setExpanded(false);
+      refreshTeams();
     } catch (error) {
       handleApiError(error);
     }
@@ -37,40 +39,75 @@ const TeamListItem = ({ team, refreshTeams, users = [] }) => {
 
   return (
     <div
-      className="border rounded p-4 mb-2 bg-white shadow cursor-pointer hover:bg-gray-50 transition"
-      onClick={() => setExpanded((prev) => !prev)}
+      className={`
+        flex items-center gap-3 px-6 py-4 mb-2
+        bg-white rounded-lg shadow-sm
+        hover:bg-blue-50 transition-colors
+        text-sm sm:text-base
+        border border-gray-200
+        ${expanded ? "ring-2 ring-indigo-200" : ""}
+      `}
+      style={{ minWidth: 0 }}
     >
+      {/* Expand/Collapse Button */}
+      <button
+        type="button"
+        aria-label={expanded ? "Collapse" : "Expand"}
+        className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full hover:bg-indigo-100 transition"
+        onClick={() => setExpanded((prev) => !prev)}
+        tabIndex={0}
+      >
+        <span
+          className="text-xl transition-transform duration-200"
+          style={{
+            display: "inline-block",
+            transform: expanded ? "rotate(90deg)" : "rotate(0deg)",
+          }}
+        >
+          ›
+        </span>
+      </button>
       {!expanded ? (
-        <div>
-          <div className="font-semibold text-lg">{team.teamName}</div>
-          <div className="text-gray-600 text-sm mt-1">
+        <>
+          {/* Team Name */}
+          <div className="flex-1 min-w-0 font-medium truncate">
+            {team.teamName}
+          </div>
+          {/* Team Lead(s) */}
+          <div className="flex-1 min-w-0 text-gray-600 truncate">
             {teamLeads.length > 0 ? (
-              `Team Leads: ${teamLeads.join(", ")}`
+              teamLeads.join(", ")
             ) : (
               <span className="italic text-gray-400">
                 No Team Lead assigned
               </span>
             )}
           </div>
-        </div>
+          {/* Placeholder for button space to align with expanded mode */}
+          <div className="flex-shrink-0 w-[180px] hidden sm:block" />
+        </>
       ) : (
-        <form className="space-y-4" onClick={(e) => e.stopPropagation()}>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
+        <form
+          className="flex flex-col sm:flex-row gap-4 w-full items-center"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="flex-1 min-w-0">
+            <label className="block text-xs font-semibold text-gray-700 mb-1">
               Team Name
             </label>
             <input
               type="text"
-              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+              className="block w-full border border-gray-300 rounded px-3 py-1 shadow-sm focus:ring-indigo-400 focus:border-indigo-400 text-base font-medium"
               value={editName}
               onChange={(e) => setEditName(e.target.value)}
+              autoFocus
             />
           </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Team Leads
+          <div className="flex-1 min-w-0">
+            <label className="block text-xs font-semibold text-gray-700 mb-1">
+              Team Lead(s)
             </label>
-            <div className="mt-1 text-gray-800">
+            <div className="text-gray-800">
               {teamLeads.length > 0 ? (
                 teamLeads.join(", ")
               ) : (
@@ -80,7 +117,7 @@ const TeamListItem = ({ team, refreshTeams, users = [] }) => {
               )}
             </div>
           </div>
-          <div className="flex justify-end space-x-2 pt-2">
+          <div className="flex gap-2 mt-2 sm:mt-0 flex-shrink-0 w-[180px] justify-end">
             <button
               type="button"
               className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
