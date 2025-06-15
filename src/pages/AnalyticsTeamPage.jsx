@@ -7,6 +7,8 @@ import { handleApiError } from "../utils/handleApiError";
 import { AverageMoodComponent } from "../components/AverageMoodComponent";
 import { LoadingSpinner } from "../components/LoadingSpinner";
 import { TextBox } from "../components/TextBox";
+import React from "react";
+import { SmartSummary } from "../components/SmartSummary";
 
 function AnalyticsTeamPage() {
   const [todayEntries, setTodayEntries] = useState([]);
@@ -58,7 +60,6 @@ function AnalyticsTeamPage() {
       setLoading(false);
     };
     if (user) fetchEntries();
-    // eslint-disable-next-line
   }, [user, selectedTeam]);
 
   // Helper: get team name for dropdown label
@@ -111,7 +112,9 @@ function AnalyticsTeamPage() {
         <h3 className="text-3xl font-bold text-center p-4">
           {`Today's mood Entries for ${
             user?.role === "admin"
-              ? getTeamName(selectedTeam)
+              ? getTeamName(selectedTeam) === "Everyone"
+                ? "every"
+                : getTeamName(selectedTeam)
               : user?.team?.teamName || "your"
           } team:`}
         </h3>
@@ -125,7 +128,22 @@ function AnalyticsTeamPage() {
           </div>
         ) : (
           <>
-            <AverageMoodComponent context={"Today's"} entries={todayEntries} />
+            {/* Responsive width wrapper for average mood and summary */}
+            <div className="w-full max-w-md md:max-w-3xl mx-auto flex flex-col gap-4">
+              <AverageMoodComponent
+                context={"Today's"}
+                entries={todayEntries}
+              />
+              {(user?.role === "admin" || user?.teamlead) &&
+                (() => {
+                  const avg =
+                    todayEntries.reduce(
+                      (sum, entry) => sum + (entry.score || 0),
+                      0
+                    ) / todayEntries.length;
+                  return <SmartSummary avg={avg} />;
+                })()}
+            </div>
             <div className="flex justify-center">
               {todayEntries && todayEntries.length === 1 ? (
                 <div className="flex justify-center">
@@ -134,7 +152,7 @@ function AnalyticsTeamPage() {
                   </div>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch w-full max-w-md md:max-w-3xl mx-auto">
                   {todayEntries &&
                     todayEntries.map((entry) => (
                       <div

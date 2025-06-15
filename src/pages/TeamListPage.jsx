@@ -111,28 +111,32 @@ function TeamListPage() {
           </button>
         )}
         {createMode && (
-          <form className="flex items-center gap-2 m-4 bg-white p-4 rounded shadow">
-            <label className="mr-2 font-medium">Team Name</label>
-            <input
-              type="text"
-              onChange={(e) => setCreatedTeamName(e.target.value)}
-              className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-            />
-            <button
-              onClick={handleCreateTeam}
-              type="submit"
-              className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition cursor-pointer"
-            >
-              Create
-            </button>
-            <button
-              onClick={handleCancelCreateTeam}
-              type="button"
-              className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 transition cursor-pointer"
-            >
-              Cancel
-            </button>
-          </form>
+          <div className="flex sm:block justify-center sm:justify-start mx-2 sm:mx-4">
+            <form className="flex flex-col sm:flex-row sm:items-center gap-2 mt-4 bg-white p-4 rounded shadow w-full max-w-lg">
+              <label className="mr-2 font-medium min-w-[90px]">Team Name</label>
+              <input
+                type="text"
+                onChange={(e) => setCreatedTeamName(e.target.value)}
+                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400 flex-1 min-w-0"
+              />
+              <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+                <button
+                  onClick={handleCreateTeam}
+                  type="submit"
+                  className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition cursor-pointer w-full sm:w-auto"
+                >
+                  Create
+                </button>
+                <button
+                  onClick={handleCancelCreateTeam}
+                  type="button"
+                  className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 transition cursor-pointer w-full sm:w-auto"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
         )}
         <div className="m-4">
           {loading ? (

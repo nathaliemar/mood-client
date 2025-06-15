@@ -217,17 +217,9 @@ const Navbar = () => {
               </>
             )}
             {isLoading ? null : isLoggedIn ? (
-              <button
-                onClick={() => {
-                  setMenuOpen(false);
-                  // You may want to call your logout logic here or keep using <LogoutButton />
-                }}
-                className="py-2 text-gray-600 hover:text-gray-900 flex items-center"
-                aria-label="Logout"
-              >
-                <span className="mr-2">{LogoutIcon}</span>
-                <span className="md:hidden">Logout</span>
-              </button>
+              <span className="py-2 flex items-center w-full justify-center">
+                <LogoutButton onClick={() => setMenuOpen(false)} />
+              </span>
             ) : (
               <>
                 <Link
