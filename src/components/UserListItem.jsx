@@ -9,8 +9,9 @@ function UserListItem({ user }) {
         bg-white rounded-lg shadow-sm
         hover:bg-blue-50 transition-colors
         text-sm sm:text-base
+        min-w-0
+        cursor-pointer
       "
-      style={{ minWidth: 0 }}
     >
       {/* User Image */}
       <img
