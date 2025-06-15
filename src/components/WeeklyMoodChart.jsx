@@ -5,6 +5,7 @@ import {
   XAxis,
   YAxis,
   Tooltip,
+  ResponsiveContainer,
 } from "recharts";
 import { userFacingDate } from "../utils/dateUtils";
 import { moodOptions } from "../utils/moodOptions";
@@ -51,13 +52,22 @@ function WeeklyMoodChart({ entries }) {
   };
 
   return (
-    <LineChart width={600} height={400} data={data}>
-      <Line type="monotone" dataKey="score" stroke="#8884d8" strokeWidth={4} />
-      <CartesianGrid stroke="#ccc" />
-      <XAxis dataKey="displayDate" tick={{ dy: 12, fontSize: 14 }} />
-      <YAxis domain={[1, 5]} tickFormatter={emojiTickFormatter} />
-      <Tooltip content={<CustomTooltip />} />
-    </LineChart>
+    <div className="w-full max-w-[600px] overflow-x-auto">
+      <ResponsiveContainer width="100%" height={350}>
+        <LineChart data={data}>
+          <Line
+            type="monotone"
+            dataKey="score"
+            stroke="#8884d8"
+            strokeWidth={4}
+          />
+          <CartesianGrid stroke="#ccc" />
+          <XAxis dataKey="displayDate" tick={{ dy: 12, fontSize: 14 }} />
+          <YAxis domain={[1, 5]} tickFormatter={emojiTickFormatter} />
+          <Tooltip content={<CustomTooltip />} />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
   );
 }
 

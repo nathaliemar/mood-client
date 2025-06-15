@@ -1,4 +1,3 @@
-//If you're admin, you see own team + all teams here
 import { useContext, useEffect, useState } from "react";
 import { api } from "../services/api";
 import { getTodayDateAtMidnight } from "../utils/dateUtils";
@@ -138,7 +137,7 @@ function AnalyticsTeamPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {todayEntries &&
                     todayEntries.map((entry) => (
-                      <div key={entry._id} className="m-4">
+                      <div key={entry._id} className="mx-auto my-4">
                         <MoodEntryCard moodEntry={entry} />
                       </div>
                     ))}

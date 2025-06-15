@@ -135,7 +135,7 @@ function DashboardPage() {
         {todayEntry ? (
           <div className="flex flex-col items-center">
             <h4 className="mb-4 text-center">
-              Nice job! You already submitted for today! 😎
+              Nice job! You already submitted your mood for today! 😎
               <br />
               In case you forgot, here's your entry:
             </h4>
@@ -145,7 +145,7 @@ function DashboardPage() {
             {/* Conditional rendering based on user.team */}
             {user?.team ? (
               <>
-                <h4 className="m-4">Check out how your team is doing</h4>
+                <h4 className="m-4">Check out how your team is doing 👀 </h4>
                 <div className="flex gap-4">
                   <a
                     href="/analytics/team"
