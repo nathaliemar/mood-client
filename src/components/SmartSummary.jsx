@@ -17,7 +17,7 @@ function getSmartSummary(avg) {
   return null;
 }
 
-export function SmartSummary({ avg }) {
+function SmartSummary({ avg }) {
   const summary = getSmartSummary(avg);
   if (!summary) return null;
   return (
@@ -27,3 +27,4 @@ export function SmartSummary({ avg }) {
     </div>
   );
 }
+export { SmartSummary };

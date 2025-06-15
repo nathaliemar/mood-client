@@ -1,4 +1,3 @@
-import React from "react";
 import { capitalize } from "../utils/capitalize";
 
 function UserListItem({ user }) {

@@ -9,7 +9,6 @@ import {
 } from "recharts";
 import { userFacingDate } from "../utils/dateUtils";
 import { moodOptions } from "../utils/moodOptions";
-import { useEffect, useRef, useState } from "react";
 import { useContainerWidth } from "../hooks/useContainerWidth";
 
 // Custom Tooltip component
