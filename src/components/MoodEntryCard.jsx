@@ -19,26 +19,33 @@ function MoodEntryCard({ moodEntry, user }) {
   const mood = moodOptions.find((option) => option.value === score);
 
   return (
-    <div className="flex items-start gap-6 border border-gray-200 rounded-lg p-6 w-full max-w-md bg-white shadow h-full">
-      <img
-        src={imageUrl}
-        alt={`${firstName} ${lastName}`}
-        className="w-20 h-20 rounded-full object-cover bg-gray-100"
-      />
-      <div className="w-full">
-        <div className="grid grid-cols-2 gap-y-3">
-          <div className="font-semibold text-left">Name:</div>
-          <div className="text-left">
-            {firstName} {lastName}
+    <div className="flex flex-col border border-gray-200 rounded-lg p-6 w-full max-w-md bg-white shadow h-full">
+      <div className="flex items-start gap-4">
+        <img
+          src={imageUrl}
+          alt={`${firstName} ${lastName}`}
+          className="w-14 h-14 rounded-full object-cover bg-gray-100"
+        />
+        <div className="w-full">
+          <div className="grid grid-cols-2 gap-y-3">
+            <div className="font-semibold text-left">Name:</div>
+            <div className="text-left">
+              {firstName} {lastName}
+            </div>
+            <div className="font-semibold text-left">Date:</div>
+            <div className="text-left">{userFacingDate(date)}</div>
+            <div className="font-semibold text-left">Today's mood:</div>
+            <div className="text-left">{mood ? mood.emoji : ""}</div>
           </div>
-          <div className="font-semibold text-left">Date:</div>
-          <div className="text-left">{userFacingDate(date)}</div>
-          <div className="font-semibold text-left">Today's mood:</div>
-          <div className="text-left">{mood ? mood.emoji : ""}</div>
-          <div className="font-semibold text-left">Note:</div>
-          <div className="text-left">{note}</div>
         </div>
       </div>
+      {note && (
+        <div className="mt-6 w-full">
+          <div className="bg-gray-100 rounded p-3 text-left whitespace-pre-line break-words text-gray-700">
+            {note}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

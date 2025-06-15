@@ -64,7 +64,7 @@ function AnalyticsUserPage() {
         </h3>
         <div className="flex flex-col items-center">
           {entries.map((entry) => (
-            <div key={entry._id} className="m-4">
+            <div key={entry._id} className="m-4 w-full max-w-md">
               <MoodEntryCard moodEntry={entry} />
             </div>
           ))}

@@ -96,19 +96,21 @@ const UserCard = ({ user, refreshUser, onDelete }) => {
             <>
               <div className="grid grid-cols-2 gap-y-3">
                 <div className="font-semibold text-left">First Name:</div>
-                <div className="text-left">{user.firstName}</div>
+                <div className="text-left break-words">{user.firstName}</div>
                 <div className="font-semibold text-left">Last Name:</div>
-                <div className="text-left">{user.lastName}</div>
+                <div className="text-left break-words">{user.lastName}</div>
                 <div className="font-semibold text-left">Email:</div>
-                <div className="text-left">{user.email}</div>
+                <div className="text-left break-all">{user.email}</div>
                 <div className="font-semibold text-left">Role:</div>
-                <div className="text-left">{capitalize(user.role)}</div>
+                <div className="text-left break-words">
+                  {capitalize(user.role)}
+                </div>
                 <div className="font-semibold text-left">Team:</div>
-                <div className="text-left">
+                <div className="text-left break-words">
                   {user.team?.teamName || "⚠️ No team assigned"}
                 </div>
                 <div className="font-semibold text-left">Is teamlead:</div>
-                <div className="text-left">
+                <div className="text-left break-words">
                   {user.isTeamlead ? "Yes" : "No"}
                 </div>
               </div>
