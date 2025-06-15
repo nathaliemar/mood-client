@@ -82,7 +82,9 @@ const UserCard = ({ user, refreshUser, onDelete }) => {
   return (
     <div className="relative">
       <div
-        className={`flex items-start gap-6 border border-gray-200 rounded-lg p-6 max-w-4xl bg-white shadow transition-all duration-200`}
+        className={`flex items-start gap-6 border border-gray-200 rounded-lg p-6 ${
+          !editMode ? "max-w-5xl" : "max-w-4xl"
+        } bg-white shadow transition-all duration-200`}
       >
         <img
           src={form.imageUrl}
@@ -110,15 +112,15 @@ const UserCard = ({ user, refreshUser, onDelete }) => {
                   {user.isTeamlead ? "Yes" : "No"}
                 </div>
               </div>
-              <div className="flex gap-2 mt-6">
+              <div className="flex gap-2 mt-6 justify-center">
                 <button
-                  className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                  className="w-24 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 cursor-pointer"
                   onClick={handleEdit}
                 >
                   Edit
                 </button>
                 <button
-                  className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                  className="w-24 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 cursor-pointer"
                   onClick={onDelete}
                 >
                   Delete
@@ -191,7 +193,7 @@ const UserCard = ({ user, refreshUser, onDelete }) => {
                   }
                   className={`relative w-12 h-6 rounded-full transition-colors duration-200 focus:outline-none ${
                     form.isTeamlead ? "bg-green-500" : "bg-gray-300"
-                  }`}
+                  } cursor-pointer`}
                   aria-pressed={form.isTeamlead}
                   aria-label="Toggle teamlead"
                 >
@@ -207,13 +209,13 @@ const UserCard = ({ user, refreshUser, onDelete }) => {
               <div className="col-span-2 flex gap-2 mt-6">
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+                  className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 cursor-pointer"
                 >
                   Save
                 </button>
                 <button
                   type="button"
-                  className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400"
+                  className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 cursor-pointer"
                   onClick={handleCancel}
                 >
                   Cancel

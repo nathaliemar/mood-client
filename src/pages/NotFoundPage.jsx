@@ -11,7 +11,7 @@ function NotFoundPage() {
         Please check the URL or return to the homepage.
       </p>
       <Link to="/" className="inline-block">
-        <button className="px-6 py-2 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700 transition">
+        <button className="px-6 py-2 rounded bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition">
           Home
         </button>
       </Link>

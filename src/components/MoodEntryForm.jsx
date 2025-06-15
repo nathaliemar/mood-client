@@ -80,7 +80,7 @@ function MoodEntryForm({ onSubmit }) {
       {/* Submit button */}
       <button
         type="submit"
-        className="mt-2 bg-blue-600 text-white rounded py-2 font-semibold hover:bg-blue-700 transition"
+        className="mt-2 bg-indigo-600 text-white rounded py-2 font-semibold hover:bg-indigo-700 transition cursor-pointer"
       >
         Submit
       </button>

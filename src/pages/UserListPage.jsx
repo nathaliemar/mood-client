@@ -43,10 +43,10 @@ function UserListPage() {
   return (
     <>
       <button
-        className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 m-4"
+        className="mb-4 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 m-4 cursor-pointer"
         onClick={handleCopyInviteLink}
       >
-        Copy Invite Link
+        Copy Invite Link 🔗
       </button>
       <div className="p-4">
         <UserListHeader />

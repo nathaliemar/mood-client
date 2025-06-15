@@ -5,9 +5,8 @@ const HeroComponent = () => (
     <div className="flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto w-full px-6 py-16">
       {/* Left Side */}
       <div className="flex-1 flex flex-col items-start justify-center">
-        <h1 className="text-4xl md:text-6xl font-extrabold text-gray-800 mb-6 leading-tight">
-          Start your team's journey to a happier, more connected workplace—one
-          mood at a time.
+        <h1 className="text-4xl md:text-6xl text-gray-800 mb-6 font-gelasio ">
+          Turn team moods into team <span className="italic">momentum</span>
         </h1>
         <p className="text-lg md:text-2xl text-gray-700 mb-8 max-w-xl">
           Discover how your team is <span className="italic">really</span>{" "}

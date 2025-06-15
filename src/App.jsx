@@ -16,7 +16,7 @@ import Navbar from "./components/Navbar";
 
 function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-200 via-blue-100 to-indigo-100">
+    <div className="min-h-screen bg-gradient-to-br from-pink-200 via-blue-100 to-indigo-100 font-dm-sans ">
       <Toaster position="bottom-center" />
       <div className="flex flex-col min-h-screen">
         <Navbar />

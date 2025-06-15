@@ -53,7 +53,7 @@ const TeamListItem = ({ team, refreshTeams, users = [] }) => {
       <button
         type="button"
         aria-label={expanded ? "Collapse" : "Expand"}
-        className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full hover:bg-indigo-100 transition"
+        className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full hover:bg-indigo-100 transition cursor-pointer"
         onClick={() => setExpanded((prev) => !prev)}
         tabIndex={0}
       >
@@ -120,14 +120,14 @@ const TeamListItem = ({ team, refreshTeams, users = [] }) => {
           <div className="flex gap-2 mt-2 sm:mt-0 flex-shrink-0 w-[180px] justify-end">
             <button
               type="button"
-              className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
+              className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition cursor-pointer"
               onClick={handleSave}
             >
               Save
             </button>
             <button
               type="button"
-              className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
+              className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition cursor-pointer"
               onClick={handleDelete}
             >
               Delete

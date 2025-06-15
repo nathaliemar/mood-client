@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 function InfoTooltip({ message }) {
   return (
     <span className="relative group ml-2 inline-block align-middle">
-      <span className="w-5 h-5 rounded-full bg-blue-200 text-blue-700 flex items-center justify-center text-xs font-bold cursor-pointer">
+      <span className="w-5 h-5 rounded-full bg-blue-200 text-indigo-700 flex items-center justify-center text-xs font-bold cursor-pointer">
         i
       </span>
       <span className="absolute left-1/2 -translate-x-1/2 mt-2 w-64 bg-gray-800 text-white text-xs rounded p-2 opacity-0 group-hover:opacity-100 pointer-events-none z-10 transition-opacity duration-200">
@@ -50,7 +50,7 @@ function SignUpForm({ onSubmit, companyId, companyName }) {
   const title = isInvite ? (
     <span>
       Create your user account with{" "}
-      <span className="text-blue-600 font-semibold">
+      <span className="text-indigo-600 font-semibold">
         {companyName || "this company"}
       </span>
     </span>
@@ -180,7 +180,7 @@ function SignUpForm({ onSubmit, companyId, companyName }) {
         {/* Submit Button */}
         <button
           type="submit"
-          className="mt-2 bg-blue-600 text-white rounded py-2 font-semibold hover:bg-blue-700 transition"
+          className="mt-2 bg-indigo-600 text-white rounded py-2 font-semibold hover:bg-indigo-700 transition cursor-pointer"
         >
           {buttonText}
         </button>
@@ -190,7 +190,7 @@ function SignUpForm({ onSubmit, companyId, companyName }) {
           <hr className="w-full border-t border-gray-200 my-2" />
           <span className="text-xs text-gray-500">
             Already have an account?{" "}
-            <Link to="/login" className="text-blue-600 hover:underline">
+            <Link to="/login" className="text-indigo-600 hover:underline">
               Log in
             </Link>
           </span>

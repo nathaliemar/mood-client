@@ -121,7 +121,7 @@ function DashboardPage() {
           There are currently users without a team assigned!{" "}
           <a
             href="/settings/users"
-            className="underline text-blue-700 hover:text-blue-900"
+            className="underline text-indigo-700 hover:text-indigo-900"
           >
             Assign them now
           </a>
@@ -145,7 +145,7 @@ function DashboardPage() {
                 <div className="flex gap-4">
                   <a
                     href="/analytics/team"
-                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+                    className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
                   >
                     View my team
                   </a>
