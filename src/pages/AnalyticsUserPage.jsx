@@ -5,10 +5,12 @@ import { useAuthContext } from "../context/auth.context";
 import { MoodEntryCard } from "../components/MoodEntryCard";
 import { WeeklyMoodChart } from "../components/WeeklyMoodChart";
 import { TextBox } from "../components/TextBox";
+import { LoadingSpinner } from "../components/LoadingSpinner";
 
 function AnalyticsUserPage() {
   const [entries, setEntries] = useState([]);
   const { user } = useAuthContext();
+  const [loading, setLoading] = useState(true);
 
   const fetchEntries = async () => {
     try {
@@ -19,12 +21,22 @@ function AnalyticsUserPage() {
       console.log(error);
       handleApiError(error);
     }
+    setLoading(false);
   };
   useEffect(() => {
     if (user?._id) {
+      setLoading(true);
       fetchEntries();
     }
   }, [user]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-200 via-blue-100 to-indigo-100 relative">

@@ -4,12 +4,14 @@ import { TeamListItem } from "../components/TeamListItem";
 import { TextBox } from "../components/TextBox";
 import toast from "react-hot-toast";
 import { handleApiError } from "../utils/handleApiError";
+import { LoadingSpinner } from "../components/LoadingSpinner";
 
 function TeamListPage() {
   const [teams, setTeams] = useState([]);
   const [users, setUsers] = useState([]);
   const [createMode, setCreateMode] = useState(false);
   const [createdTeamName, setCreatedTeamName] = useState();
+  const [loading, setLoading] = useState(true); // loading state
 
   const fetchTeams = async () => {
     try {
@@ -32,8 +34,13 @@ function TeamListPage() {
     }
   };
   useEffect(() => {
-    fetchTeams();
-    fetchUsers();
+    // Fetch both teams and users, then set loading to false
+    const fetchAll = async () => {
+      setLoading(true);
+      await Promise.all([fetchTeams(), fetchUsers()]);
+      setLoading(false);
+    };
+    fetchAll();
   }, []);
 
   const handleCreateTeam = async (e) => {
@@ -88,7 +95,11 @@ function TeamListPage() {
         </form>
       )}
       <div className="m-4">
-        {teams.length === 0 ? (
+        {loading ? (
+          <div className="flex justify-center items-center min-h-[300px] m-4">
+            <LoadingSpinner />
+          </div>
+        ) : teams.length === 0 ? (
           <div className="flex justify-center items-center min-h-[300px] m-4">
             <TextBox
               title="Start creating your first team"
