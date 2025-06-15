@@ -2,7 +2,7 @@ import { useState } from "react";
 import { api } from "../services/api";
 import { handleApiError } from "../utils/handleApiError";
 
-const TeamListItem = ({ team, refreshTeams, users = [] }) => {
+const TeamListItem = ({ team, refreshTeams, users = [], onDelete }) => {
   const [expanded, setExpanded] = useState(false);
   const [editName, setEditName] = useState(team.teamName);
 
@@ -27,14 +27,10 @@ const TeamListItem = ({ team, refreshTeams, users = [] }) => {
       handleApiError(error);
     }
   };
-  const handleDelete = async (e) => {
+
+  const handleDelete = (e) => {
     e.preventDefault();
-    try {
-      await api.delete(`api/teams/${team._id}`);
-      refreshTeams();
-    } catch (error) {
-      handleApiError(error);
-    }
+    if (onDelete) onDelete(team);
   };
 
   return (
@@ -46,8 +42,8 @@ const TeamListItem = ({ team, refreshTeams, users = [] }) => {
         text-sm sm:text-base
         border border-gray-200
         ${expanded ? "ring-2 ring-indigo-200" : ""}
+        min-w-0
       `}
-      style={{ minWidth: 0 }}
     >
       {/* Expand/Collapse Button */}
       <button
@@ -58,11 +54,9 @@ const TeamListItem = ({ team, refreshTeams, users = [] }) => {
         tabIndex={0}
       >
         <span
-          className="text-xl transition-transform duration-200"
-          style={{
-            display: "inline-block",
-            transform: expanded ? "rotate(90deg)" : "rotate(0deg)",
-          }}
+          className={`text-xl transition-transform duration-200 inline-block ${
+            expanded ? "rotate-90" : "rotate-0"
+          }`}
         >
           ›
         </span>
