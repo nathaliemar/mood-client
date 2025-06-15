@@ -1,1 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Gelasio:ital,wght@0,400..700;1,400..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
+
+@theme {
+  --font-dm-sans: "DM Sans", sans-seif;
+  --font-gelasio: "Gelasio", serif;
+  --font-montserrat: "Montserrat", sans-serif;
+  --color-coral: "#f472b6";
+  --color-indigo: "#818cf8";
+  --color-lavender: "#a5b4fc";
+  --color-gray: "#1f2937";
+  --color-graylight: "#4b5563";
+  --color-cardbackground: "#f9fafb";
+  --color-border: "#e5e7eb";
+}

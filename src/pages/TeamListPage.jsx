@@ -66,7 +66,7 @@ function TeamListPage() {
       {!createMode && (
         <button
           onClick={() => setCreateMode(true)}
-          className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition m-4"
+          className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition m-4 cursor-pointer"
         >
           Add new Team
         </button>
@@ -82,14 +82,14 @@ function TeamListPage() {
           <button
             onClick={handleCreateTeam}
             type="submit"
-            className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
+            className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition cursor-pointer"
           >
             Create
           </button>
           <button
             onClick={handleCancelCreateTeam}
             type="button"
-            className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 transition"
+            className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 transition cursor-pointer"
           >
             Cancel
           </button>

@@ -67,7 +67,7 @@ function LoginForm({ onSubmit }) {
         {/* Submit Button */}
         <button
           type="submit"
-          className="mt-2 bg-blue-600 text-white rounded py-2 font-semibold hover:bg-blue-700 transition"
+          className="mt-2 bg-indigo-600 text-white rounded py-2 font-semibold hover:bg-indigo-700 transition cursor-pointer"
         >
           Log in
         </button>
@@ -77,7 +77,7 @@ function LoginForm({ onSubmit }) {
           <hr className="w-full border-t border-gray-200 my-2" />
           <span className="text-xs text-gray-500">
             No account yet?{" "}
-            <Link to="/signup" className="text-blue-600 hover:underline">
+            <Link to="/signup" className="text-indigo-600 hover:underline">
               Sign up now!
             </Link>
           </span>

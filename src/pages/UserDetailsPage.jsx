@@ -59,7 +59,7 @@ function UserDetailsPage() {
       >
         <UserCard user={user} refreshUser={fetchUser} onDelete={handleDelete} />
         <Link to={"/settings/users"}>
-          <button className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition mt-6">
+          <button className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition mt-6 cursor-pointer">
             Back to user list
           </button>
         </Link>
