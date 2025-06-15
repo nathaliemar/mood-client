@@ -12,7 +12,6 @@ function useQuery() {
 
 function SignUpPage() {
   const { signup } = useAuthContext();
-  const [errorMsg, setErrorMsg] = useState();
   const [companyName, setCompanyName] = useState("");
   const query = useQuery();
   const companyId = query.get("companyId");
@@ -55,7 +54,6 @@ function SignUpPage() {
       <div className="flex flex-col items-center justify-center min-h-screen ">
         <SignUpForm
           onSubmit={handleSignup}
-          errorMsg={errorMsg}
           companyId={companyId}
           companyName={companyName}
           fromNewSignup={fromNewSignup}
