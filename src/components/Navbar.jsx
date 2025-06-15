@@ -1,11 +1,22 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { LogoutButton } from "./LogoutButton";
 import { useAuthContext } from "../context/auth.context";
 
 const Navbar = () => {
   const { user, isLoggedIn, isLoading } = useAuthContext();
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+
+  // Helper to check if a path is active
+  const isActive = (path) => {
+    if (path === "/") {
+      // Only highlight Dashboard/Home on "/" or "/dashboard"
+      return location.pathname === "/" || location.pathname === "/dashboard";
+    }
+    // For other links, highlight only on exact match
+    return location.pathname === path;
+  };
 
   // Helper for logout icon
   const LogoutIcon = (
@@ -29,7 +40,7 @@ const Navbar = () => {
     <nav className="sticky top-0 z-50 bg-white shadow-md">
       <div className="px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between w-full">
         <Link to={"/"}>
-          <div className="text-xl font-semibold text-gray-800">Moodi 🔮</div>
+          <div className="text-xl font-semibold text-gray-800">🔮 Moodi</div>
         </Link>
         {/* Hamburger button */}
         <button
@@ -57,21 +68,32 @@ const Navbar = () => {
         </button>
         {/* Desktop menu */}
         <div className="hidden md:flex space-x-4 items-center">
-          <Link to="/" className="text-gray-600 hover:text-gray-900">
+          <Link
+            to="/"
+            className={`text-gray-600 hover:text-gray-900 ${
+              isActive("/") ? "font-bold text-indigo-600" : ""
+            }`}
+          >
             {isLoggedIn ? "Dashboard" : "Home"}
           </Link>
           {isLoggedIn && (
             <>
               <Link
                 to="/analytics/user"
-                className="text-gray-600 hover:text-gray-900"
+                className={`text-gray-600 hover:text-gray-900 ${
+                  isActive("/analytics/user") ? "font-bold text-indigo-600" : ""
+                }`}
               >
                 My Entries
               </Link>
               {user?.team && (
                 <Link
                   to="/analytics/team"
-                  className="text-gray-600 hover:text-gray-900"
+                  className={`text-gray-600 hover:text-gray-900 ${
+                    isActive("/analytics/team")
+                      ? "font-bold text-indigo-600"
+                      : ""
+                  }`}
                 >
                   My Team
                 </Link>
@@ -80,13 +102,21 @@ const Navbar = () => {
                 <>
                   <Link
                     to="/settings/users"
-                    className="text-gray-600 hover:text-gray-900"
+                    className={`text-gray-600 hover:text-gray-900 ${
+                      isActive("/settings/users")
+                        ? "font-bold text-indigo-600"
+                        : ""
+                    }`}
                   >
                     Users
                   </Link>
                   <Link
                     to="/settings/teams"
-                    className="text-gray-600 hover:text-gray-900"
+                    className={`text-gray-600 hover:text-gray-900 ${
+                      isActive("/settings/teams")
+                        ? "font-bold text-indigo-600"
+                        : ""
+                    }`}
                   >
                     Teams
                   </Link>
@@ -101,10 +131,20 @@ const Navbar = () => {
             </span>
           ) : (
             <>
-              <Link to="/login" className="text-gray-600 hover:text-gray-900">
+              <Link
+                to="/login"
+                className={`text-gray-600 hover:text-gray-900 ${
+                  isActive("/login") ? "font-bold text-indigo-600" : ""
+                }`}
+              >
                 Login
               </Link>
-              <Link to="/signup" className="text-gray-600 hover:text-gray-900">
+              <Link
+                to="/signup"
+                className={`text-gray-600 hover:text-gray-900 ${
+                  isActive("/signup") ? "font-bold text-indigo-600" : ""
+                }`}
+              >
                 Signup
               </Link>
             </>
@@ -115,7 +155,9 @@ const Navbar = () => {
           <div className="absolute top-16 left-0 w-full bg-white shadow-md flex flex-col items-center py-4 md:hidden z-50">
             <Link
               to="/"
-              className="py-2 text-gray-600 hover:text-gray-900"
+              className={`py-2 text-gray-600 hover:text-gray-900 ${
+                isActive("/") ? "font-bold text-indigo-600" : ""
+              }`}
               onClick={() => setMenuOpen(false)}
             >
               {isLoggedIn ? "Dashboard" : "Home"}
@@ -124,7 +166,11 @@ const Navbar = () => {
               <>
                 <Link
                   to="/analytics/user"
-                  className="py-2 text-gray-600 hover:text-gray-900"
+                  className={`py-2 text-gray-600 hover:text-gray-900 ${
+                    isActive("/analytics/user")
+                      ? "font-bold text-indigo-600"
+                      : ""
+                  }`}
                   onClick={() => setMenuOpen(false)}
                 >
                   My Entries
@@ -132,7 +178,11 @@ const Navbar = () => {
                 {user?.team && (
                   <Link
                     to="/analytics/team"
-                    className="py-2 text-gray-600 hover:text-gray-900"
+                    className={`py-2 text-gray-600 hover:text-gray-900 ${
+                      isActive("/analytics/team")
+                        ? "font-bold text-indigo-600"
+                        : ""
+                    }`}
                     onClick={() => setMenuOpen(false)}
                   >
                     My Team
@@ -142,14 +192,22 @@ const Navbar = () => {
                   <>
                     <Link
                       to="/settings/users"
-                      className="py-2 text-gray-600 hover:text-gray-900"
+                      className={`py-2 text-gray-600 hover:text-gray-900 ${
+                        isActive("/settings/users")
+                          ? "font-bold text-indigo-600"
+                          : ""
+                      }`}
                       onClick={() => setMenuOpen(false)}
                     >
                       Users
                     </Link>
                     <Link
                       to="/settings/teams"
-                      className="py-2 text-gray-600 hover:text-gray-900"
+                      className={`py-2 text-gray-600 hover:text-gray-900 ${
+                        isActive("/settings/teams")
+                          ? "font-bold text-indigo-600"
+                          : ""
+                      }`}
                       onClick={() => setMenuOpen(false)}
                     >
                       Teams
@@ -174,14 +232,18 @@ const Navbar = () => {
               <>
                 <Link
                   to="/login"
-                  className="py-2 text-gray-600 hover:text-gray-900"
+                  className={`py-2 text-gray-600 hover:text-gray-900 ${
+                    isActive("/login") ? "font-bold text-indigo-600" : ""
+                  }`}
                   onClick={() => setMenuOpen(false)}
                 >
                   Login
                 </Link>
                 <Link
                   to="/signup"
-                  className="py-2 text-gray-600 hover:text-gray-900"
+                  className={`py-2 text-gray-600 hover:text-gray-900 ${
+                    isActive("/signup") ? "font-bold text-indigo-600" : ""
+                  }`}
                   onClick={() => setMenuOpen(false)}
                 >
                   Signup
