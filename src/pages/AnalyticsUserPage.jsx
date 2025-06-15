@@ -43,8 +43,8 @@ function AnalyticsUserPage() {
       {entries.length === 0 && (
         <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
           <TextBox
-            title="Unlock analytics by submitting your first mood entry!"
-            text="Once you have submitted your first mood entry, you can see your mood history here. What are you waiting for?"
+            title="Unlock analytics by submitting your first Moodi!"
+            text="Once you have submitted your first Moodi, you can see your mood history here. What are you waiting for?"
           />
         </div>
       )}

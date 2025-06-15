@@ -179,10 +179,10 @@ function DashboardPage() {
             {allEntries.length === 0 && (
               <div className="mb-6 w-full flex justify-center">
                 <TextBox
-                  title="Welcome to the MoodApp!"
+                  title="Welcome to Moodi!"
                   text={`Hey ${
                     user?.firstName || ""
-                  }, welcome to MoodApp, your go-to place to log your daily mood and see how your colleagues are doing! Get started now by creating your first mood entry! Afterwards, you'll unlock analytics and can see data from your team. PS: Your data will be visible to your team, and Admins only. Submit your mood now! ⬇️ `}
+                  }, welcome to Moodi, your go-to place to log your daily mood and see how your colleagues are doing! Get started now by creating your first mood entry (or short: Moodi)! Afterwards, you'll unlock analytics and can see data from your team. PS: Your data will be visible to your team, and Admins only. Submit your Moodi now! ⬇️ `}
                 />
               </div>
             )}

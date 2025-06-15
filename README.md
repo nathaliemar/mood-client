@@ -1,6 +1,6 @@
 # Mood App – Client
 
-This is the React client for the Mood App, a daily mood check-in platform for teams and organizations. The app helps teams track well-being, foster transparency, and build a positive workplace culture.
+This is the React client for the App Moodi, a daily mood check-in platform for teams and organizations. The app helps teams track well-being, foster transparency, and build a positive workplace culture.
 
 ## Features
 
@@ -27,6 +27,7 @@ This is the React client for the Mood App, a daily mood check-in platform for te
 - Axios
 - React Router
 - react-hot-toast
+- Recharts
 
 ## License
 
