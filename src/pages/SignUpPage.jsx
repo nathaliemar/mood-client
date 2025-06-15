@@ -19,12 +19,17 @@ function SignUpPage() {
   const fromNewSignup = query.get("from") === "newsignup";
 
   useEffect(() => {
-    if (companyId) {
-      api
-        .get(`/api/companies/${companyId}`)
-        .then((res) => setCompanyName(res.data.name))
-        .catch(handleApiError);
-    }
+    const fetchCompanyName = async () => {
+      if (companyId) {
+        try {
+          const res = await api.get(`/api/companies/${companyId}`);
+          setCompanyName(res.data.name);
+        } catch (error) {
+          handleApiError(error);
+        }
+      }
+    };
+    fetchCompanyName();
   }, [companyId]);
 
   const handleSignup = async (formData) => {
@@ -41,7 +46,7 @@ function SignUpPage() {
         await signup(formData);
       }
     } catch (error) {
-      setErrorMsg(error?.response?.data?.message || "Signup failed");
+      handleApiError(error);
     }
   };
 

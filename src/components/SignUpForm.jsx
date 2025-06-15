@@ -15,7 +15,7 @@ function InfoTooltip({ message }) {
   );
 }
 
-function SignUpForm({ onSubmit, errorMsg, companyId, companyName }) {
+function SignUpForm({ onSubmit, companyId, companyName }) {
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -66,7 +66,6 @@ function SignUpForm({ onSubmit, errorMsg, companyId, companyName }) {
 
   return (
     <>
-      {errorMsg && <div className="text-red-500 mb-2">{errorMsg}</div>}
       <form
         className="w-full max-w-md mx-auto p-6 bg-white rounded-lg shadow flex flex-col gap-4"
         onSubmit={handleSubmit}
