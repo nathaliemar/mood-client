@@ -12,8 +12,7 @@ function MoodEntryForm({ onSubmit }) {
 
   return (
     <form
-      className="w-full max-w-xl mx-auto bg-white rounded-lg shadow p-6 flex flex-col gap-6"
-      style={{ maxWidth: "50vw" }}
+      className="w-full max-w-xl mx-auto bg-white rounded-lg shadow p-6 flex flex-col gap-6 md:max-w-2xl"
       onSubmit={handleSubmit}
     >
       {/* Mood selection */}
@@ -45,13 +44,13 @@ function MoodEntryForm({ onSubmit }) {
                   transition
                   cursor-pointer
                   select-none
+                  rounded-md
                   ${
                     mood === option.value
                       ? "bg-blue-100 border-blue-400 shadow"
                       : "bg-white hover:bg-blue-50 hover:border-blue-300"
                   }
                 `}
-                style={{ borderRadius: "0.375rem" }}
                 title={option.label}
               >
                 {option.emoji}

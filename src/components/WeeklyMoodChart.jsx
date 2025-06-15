@@ -15,9 +15,7 @@ const CustomTooltip = ({ active, payload, label }) => {
     const entry = payload[0].payload;
     const mood = moodOptions.find((opt) => opt.value === entry.score);
     return (
-      <div
-        style={{ background: "#fff", border: "1px solid #ccc", padding: 10 }}
-      >
+      <div className="bg-white border border-gray-300 p-2 rounded shadow text-sm">
         <div>
           <strong>Date:</strong> {entry.displayDate}
         </div>

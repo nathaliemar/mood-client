@@ -6,13 +6,16 @@ import toast from "react-hot-toast";
 import { handleApiError } from "../utils/handleApiError";
 import { LoadingSpinner } from "../components/LoadingSpinner";
 import { TeamListHeader } from "../components/TeamListHeader";
+import { ConfirmModal } from "../components/ConfirmModal";
 
 function TeamListPage() {
   const [teams, setTeams] = useState([]);
   const [users, setUsers] = useState([]);
   const [createMode, setCreateMode] = useState(false);
   const [createdTeamName, setCreatedTeamName] = useState();
-  const [loading, setLoading] = useState(true); // loading state
+  const [loading, setLoading] = useState(true);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [teamToDelete, setTeamToDelete] = useState(null);
 
   const fetchTeams = async () => {
     try {
@@ -35,7 +38,6 @@ function TeamListPage() {
     }
   };
   useEffect(() => {
-    // Fetch both teams and users, then set loading to false
     const fetchAll = async () => {
       setLoading(true);
       await Promise.all([fetchTeams(), fetchUsers()]);
@@ -61,67 +63,106 @@ function TeamListPage() {
     setCreateMode(false);
     setCreatedTeamName("");
   };
+
+  const handleDelete = (team) => {
+    setTeamToDelete(team);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!teamToDelete) return;
+    try {
+      await api.delete(`/api/teams/${teamToDelete._id}`);
+      setShowDeleteModal(false);
+      setTeamToDelete(null);
+      fetchTeams();
+      toast.success("Team deleted successfully");
+    } catch (error) {
+      handleApiError(error);
+      setShowDeleteModal(false);
+      setTeamToDelete(null);
+    }
+  };
+
+  const cancelDelete = () => {
+    setShowDeleteModal(false);
+    setTeamToDelete(null);
+  };
+
   return (
     <>
-      {!createMode && (
-        <button
-          onClick={() => setCreateMode(true)}
-          className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition m-4 cursor-pointer"
-        >
-          Add new Team
-        </button>
-      )}
-      {createMode && (
-        <form className="flex items-center gap-2 m-4 bg-white p-4 rounded shadow">
-          <label className="mr-2 font-medium">Team Name</label>
-          <input
-            type="text"
-            onChange={(e) => setCreatedTeamName(e.target.value)}
-            className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-          />
+      <ConfirmModal
+        open={showDeleteModal}
+        onConfirm={confirmDelete}
+        onCancel={cancelDelete}
+        message="Are you sure you want to delete this team? This cannot be undone."
+      />
+      <div
+        className={
+          showDeleteModal ? "blur-sm pointer-events-none select-none" : ""
+        }
+      >
+        {!createMode && (
           <button
-            onClick={handleCreateTeam}
-            type="submit"
-            className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition cursor-pointer"
+            onClick={() => setCreateMode(true)}
+            className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition m-4 cursor-pointer"
           >
-            Create
+            Add new Team
           </button>
-          <button
-            onClick={handleCancelCreateTeam}
-            type="button"
-            className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 transition cursor-pointer"
-          >
-            Cancel
-          </button>
-        </form>
-      )}
-      <div className="m-4">
-        {loading ? (
-          <div className="flex justify-center items-center min-h-[300px] m-4">
-            <LoadingSpinner />
-          </div>
-        ) : teams.length === 0 ? (
-          <div className="flex justify-center items-center min-h-[300px] m-4">
-            <TextBox
-              title="Start creating your first team"
-              text="Only when being part of a team, users will be able to see data of their collegues. Get started by creating your first team now. Afterwards, you can assign it to your users via the user list"
-            />
-          </div>
-        ) : (
-          <>
-            <div className="">
-              <TeamListHeader />
-            </div>
-            {teams.map((team) => (
-              <TeamListItem
-                key={team._id}
-                team={team}
-                users={users}
-                refreshTeams={fetchTeams}
-              />
-            ))}
-          </>
         )}
+        {createMode && (
+          <form className="flex items-center gap-2 m-4 bg-white p-4 rounded shadow">
+            <label className="mr-2 font-medium">Team Name</label>
+            <input
+              type="text"
+              onChange={(e) => setCreatedTeamName(e.target.value)}
+              className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            />
+            <button
+              onClick={handleCreateTeam}
+              type="submit"
+              className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition cursor-pointer"
+            >
+              Create
+            </button>
+            <button
+              onClick={handleCancelCreateTeam}
+              type="button"
+              className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 transition cursor-pointer"
+            >
+              Cancel
+            </button>
+          </form>
+        )}
+        <div className="m-4">
+          {loading ? (
+            <div className="flex justify-center items-center min-h-[300px] m-4">
+              <LoadingSpinner />
+            </div>
+          ) : teams.length === 0 ? (
+            <div className="flex justify-center items-center min-h-[300px] m-4">
+              <TextBox
+                title="Start creating your first team"
+                text="Only when being part of a team, users will be able to see data of their collegues. Get started by creating your first team now. Afterwards, you can assign it to your users via the user list"
+              />
+            </div>
+          ) : (
+            <>
+              <div className="">
+                <TeamListHeader />
+              </div>
+              {teams.map((team) => (
+                <TeamListItem
+                  key={team._id}
+                  team={team}
+                  users={users}
+                  refreshTeams={fetchTeams}
+                  onDelete={() => handleDelete(team)}
+                />
+              ))}
+            </>
+          )}
+        </div>
       </div>
     </>
   );
