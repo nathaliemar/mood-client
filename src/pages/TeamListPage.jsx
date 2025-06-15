@@ -5,6 +5,7 @@ import { TextBox } from "../components/TextBox";
 import toast from "react-hot-toast";
 import { handleApiError } from "../utils/handleApiError";
 import { LoadingSpinner } from "../components/LoadingSpinner";
+import { TeamListHeader } from "../components/TeamListHeader";
 
 function TeamListPage() {
   const [teams, setTeams] = useState([]);
@@ -107,14 +108,19 @@ function TeamListPage() {
             />
           </div>
         ) : (
-          teams.map((team) => (
-            <TeamListItem
-              key={team._id}
-              team={team}
-              users={users}
-              refreshTeams={fetchTeams}
-            />
-          ))
+          <>
+            <div className="">
+              <TeamListHeader />
+            </div>
+            {teams.map((team) => (
+              <TeamListItem
+                key={team._id}
+                team={team}
+                users={users}
+                refreshTeams={fetchTeams}
+              />
+            ))}
+          </>
         )}
       </div>
     </>

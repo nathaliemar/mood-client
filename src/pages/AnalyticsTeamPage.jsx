@@ -87,7 +87,9 @@ function AnalyticsTeamPage() {
         {/* Admin dropdown */}
         {user?.role === "admin" && (
           <div className="mb-4 flex flex-col items-center">
-            <label className="mb-1 font-semibold">Show results for team:</label>
+            <label className="mb-1 font-semibold">
+              Show results results for team:
+            </label>
             <select
               className="border rounded px-3 py-2"
               value={selectedTeam}
