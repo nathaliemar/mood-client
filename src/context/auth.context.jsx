@@ -8,7 +8,7 @@ const AuthContext = createContext();
 //Create wrapper for Auth Context
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(true); //TODO: Make sure UI uses Loading
+  const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
@@ -65,8 +65,8 @@ const AuthProvider = ({ children }) => {
     const token = localStorage.getItem("authToken");
     if (!token) {
       setIsLoading(false);
-      //TODO:Added these two, see if they cause issues:
-      setUser(null), setIsLoggedIn(false);
+      setUser(null);
+      setIsLoggedIn(false);
       return;
     }
     try {
